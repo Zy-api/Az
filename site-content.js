@@ -31,8 +31,8 @@ window.SITE_CONTENT = {
   "files": [
     {
       "icon": "↓",
-      "title": "PUBG清理文件",
-      "description": "点击后会下载一个真实的 TXT 文件，用来证明下载功能可用。",
+      "title": "PUBG MOBLIE 清理文件",
+      "description": "可用于清理封号残留",
       "type": "ZIP",
       "meta": "可直接下载",
       "button": "立即下载",
