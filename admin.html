@@ -1679,6 +1679,10 @@
           showAdmin();
           return;
         }
+        if (authMode === "register" && profile && profile.email === email) {
+          showAuthError("这个邮箱已经注册过账号了，不能重复注册。请直接登录，或登录后点“修改资料”。");
+          return;
+        }
         if (!authReady()) {
           showAuthError(authProblem() + "\n\n请确认 admin.html 里已经填了 EmailJS Public Key、Service ID、Template ID 和允许登录邮箱。");
           return;
@@ -1773,6 +1777,11 @@
           return;
         }
         if (saved.mode === "register") {
+          const existingProfile = getSavedProfile();
+          if (existingProfile && existingProfile.email === saved.email) {
+            showAuthError("这个邮箱已经注册过账号了，不能重复注册。请直接登录。");
+            return;
+          }
           saveProfile({
             email: saved.email,
             userId: saved.userId,
