@@ -31,7 +31,7 @@ window.SITE_CONTENT = {
   "files": [
     {
       "icon": "↓",
-      "title": "示例说明文件",
+      "title": "PUBG清理文件",
       "description": "点击后会下载一个真实的 TXT 文件，用来证明下载功能可用。",
       "type": "ZIP",
       "meta": "可直接下载",
