@@ -6,6 +6,7 @@
   <title>AZ 后台编辑</title>
   <script src="./site-content.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
     :root {
       --text: #10233f;
@@ -794,7 +795,6 @@
       </div>
       <div class="actions">
         <button class="btn btn-primary" id="sendCodeBtn" type="button" onclick="triggerAuthAction(event, 'send')" ontouchend="triggerAuthAction(event, 'send')" onpointerup="triggerAuthAction(event, 'send')">发送验证码</button>
-        <a class="btn btn-ghost" href="./index.html">返回主页</a>
       </div>
       <div class="auth-code-row" id="authCodeRow">
         <label>邮箱验证码<input id="authCode" inputmode="numeric" placeholder="输入邮箱收到的验证码"></label>
@@ -976,10 +976,17 @@
       codeExpireMinutes: 10
     };
 
+    const ACCOUNT_DB = {
+      url: "https://kvztidvnrsodxeeqttxg.supabase.co",
+      anonKey: "sb_publishable_hiCRgeK_h6TbSZo-TDv6XA_Q03zQD2U",
+      table: "admin_accounts"
+    };
+
     const AUTH_AVATARS = ["🧊", "🚀", "🛡️", "💎", "⚡", "🌙", "🦊", "🐉"];
     let authMode = "login";
     let selectedAvatar = AUTH_AVATARS[0];
     let selectedEditAvatar = AUTH_AVATARS[0];
+    let accountDbClient = null;
     let adminStarted = false;
 
     const ICON_LIBRARY = {
@@ -1498,6 +1505,63 @@
       localStorage.setItem("az_admin_profile", JSON.stringify(profile));
     }
 
+    function getAccountDbClient() {
+      if (!window.supabase) throw new Error("Supabase 数据库脚本没有加载成功。");
+      if (!accountDbClient) {
+        accountDbClient = window.supabase.createClient(ACCOUNT_DB.url, ACCOUNT_DB.anonKey);
+      }
+      return accountDbClient;
+    }
+
+    function mapRemoteProfile(row) {
+      if (!row) return null;
+      return {
+        email: row.email,
+        userId: row.user_id,
+        avatar: row.avatar,
+        password: row.password,
+        createdAt: row.created_at,
+        updatedAt: row.updated_at
+      };
+    }
+
+    async function getCloudProfile(email) {
+      const client = getAccountDbClient();
+      const { data, error } = await client
+        .from(ACCOUNT_DB.table)
+        .select("email,user_id,avatar,password,created_at,updated_at")
+        .eq("email", email)
+        .maybeSingle();
+      if (error) throw error;
+      return mapRemoteProfile(data);
+    }
+
+    async function saveCloudProfile(profile) {
+      const client = getAccountDbClient();
+      const { error } = await client
+        .from(ACCOUNT_DB.table)
+        .insert({
+          email: profile.email,
+          user_id: profile.userId,
+          avatar: profile.avatar,
+          password: profile.password
+        });
+      if (error) throw error;
+    }
+
+    async function updateCloudProfile(profile) {
+      const client = getAccountDbClient();
+      const { error } = await client
+        .from(ACCOUNT_DB.table)
+        .update({
+          user_id: profile.userId,
+          avatar: profile.avatar,
+          updated_at: new Date().toISOString()
+        })
+        .eq("email", profile.email);
+      if (error) throw error;
+    }
+
     function renderAvatarChoices() {
       const grid = document.getElementById("avatarGrid");
       if (!grid) return;
@@ -1613,7 +1677,7 @@
     function initAuth() {
       renderAvatarChoices();
       setAuthMode("login");
-      if (localStorage.getItem("az_admin_logged_in") === "1") {
+      if (localStorage.getItem("az_admin_logged_in") === "1" && getSavedProfile()) {
         showAdmin();
         return;
       }
@@ -1659,7 +1723,18 @@
           showAuthError("这个邮箱不在允许登录名单里。请用 allowedEmails 里面填写的邮箱登录。");
           return;
         }
-        const profile = getSavedProfile();
+        const localProfile = getSavedProfile();
+        let profile = null;
+        try {
+          profile = await getCloudProfile(email);
+          if (profile) saveProfile(profile);
+        } catch (error) {
+          if (authMode === "login") {
+            showAuthError("云端账号查询失败：" + getErrorText(error) + "\n\n请确认 Supabase 已创建 admin_accounts 表。");
+            return;
+          }
+          profile = localProfile;
+        }
         const userId = document.getElementById("authUserId").value.trim();
         if (authMode === "login") {
           if (!profile || profile.email !== email) {
@@ -1777,18 +1852,21 @@
           return;
         }
         if (saved.mode === "register") {
-          const existingProfile = getSavedProfile();
+          let existingProfile = await getCloudProfile(saved.email);
+          if (!existingProfile) existingProfile = getSavedProfile();
           if (existingProfile && existingProfile.email === saved.email) {
             showAuthError("这个邮箱已经注册过账号了，不能重复注册。请直接登录。");
             return;
           }
-          saveProfile({
+          const newProfile = {
             email: saved.email,
             userId: saved.userId,
             avatar: saved.avatar || selectedAvatar,
             password: saved.password,
             createdAt: new Date().toISOString()
-          });
+          };
+          await saveCloudProfile(newProfile);
+          saveProfile(newProfile);
         } else if (!getSavedProfile()) {
           showAuthError("没有找到注册资料，请先注册。");
           return;
@@ -1824,7 +1902,7 @@
       document.getElementById("profileEditor").classList.add("admin-hidden");
     }
 
-    function saveProfileEdit() {
+    async function saveProfileEdit() {
       const profile = getSavedProfile();
       const userId = document.getElementById("editUserId").value.trim();
       if (!profile) return;
@@ -1832,12 +1910,19 @@
         alert("ID 至少输入 2 个字符。");
         return;
       }
-      saveProfile({
+      const nextProfile = {
         ...profile,
         userId,
         avatar: selectedEditAvatar,
         updatedAt: new Date().toISOString()
-      });
+      };
+      try {
+        await updateCloudProfile(nextProfile);
+      } catch (error) {
+        alert("云端资料保存失败：" + getErrorText(error));
+        return;
+      }
+      saveProfile(nextProfile);
       updateAdminProfile();
       closeProfileEditor();
       alert("资料已保存。");
