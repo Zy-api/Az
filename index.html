@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AZ Premium Downloads</title>
+  <script src="./site-content.js"></script>
   <style>
     :root {
       --bg: #070812;
@@ -17,7 +18,10 @@
       --shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
     }
 
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
     html { scroll-behavior: smooth; }
 
     body {
@@ -32,7 +36,20 @@
       overflow-x: hidden;
     }
 
-    a { color: inherit; text-decoration: none; }
+    a {
+      color: inherit;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a:focus {
+      outline: none;
+    }
+
+    a:focus-visible {
+      outline: 2px solid rgba(214, 168, 92, 0.55);
+      outline-offset: 3px;
+    }
 
     .ambient {
       position: fixed;
@@ -287,8 +304,7 @@
       gap: 50px;
       align-items: end;
     }
-
-    .feature-grid,
+.feature-grid,
     .file-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -370,9 +386,28 @@
 
     @media (max-width: 640px) {
       .site-header {
+        position: relative;
+        top: auto;
+        z-index: 2;
         align-items: flex-start;
         flex-direction: column;
-        gap: 16px;
+        gap: 12px;
+        padding: 14px 0 4px;
+      }
+
+      nav {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        width: 100%;
+        gap: 8px;
+      }
+
+      nav a {
+        display: flex;
+        justify-content: center;
+        border-color: var(--line);
+        background: rgba(255, 255, 255, 0.05);
+        font-size: 0.86rem;
       }
 
       main,
@@ -381,23 +416,52 @@
         width: min(100% - 24px, 1180px);
       }
 
-      .hero { padding-top: 36px; }
+      .hero {
+        gap: 24px;
+        padding: 30px 0 52px;
+      }
+
+      h1 {
+        font-size: clamp(2.25rem, 13vw, 3.25rem);
+        line-height: 1;
+      }
+
+      .hero-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .hero-actions .btn,
+      .file-card .btn {
+        width: 100%;
+      }
+
+      .hero-panel {
+        display: grid;
+        min-height: auto;
+        gap: 12px;
+      }
 
       .download-preview {
-        inset: 40px 0 40px;
-        padding: 30px;
+        position: static;
+        order: 1;
+        padding: 24px;
+        border-radius: 24px;
       }
 
       .orbital-card {
-        position: relative;
+        position: static;
         width: 100%;
         margin-bottom: 12px;
       }
 
-      .top-card,
-      .bottom-card {
-        inset: auto;
-      }
+      .top-card { order: 2; }
+      .bottom-card { order: 3; }
+
+      .section { padding: 50px 0 22px; }
+      .file-card { min-height: auto; gap: 18px; }
+      .feature-card, .file-card { border-radius: 20px; }
     }
   </style>
 </head>
@@ -408,36 +472,36 @@
   <header class="site-header">
     <a class="brand" href="#">
       <span class="brand-mark"></span>
-      AZ PREMIUM
+      <span data-site="brand">AZ PREMIUM</span>
     </a>
     <nav>
-      <a href="#features">亮点</a>
-      <a href="#downloads">下载</a>
-      <a href="#about">说明</a>
+      <a href="#features" data-site="navFeatures">亮点</a>
+      <a href="#downloads" data-site="navDownloads">下载</a>
+      <a href="#about" data-site="navAbout">说明</a>
     </nav>
   </header>
 
   <main>
     <section class="hero">
       <div>
-        <p class="eyebrow">Premium Digital Downloads</p>
-        <h1>高级资源下载中心</h1>
-        <p class="hero-subtitle">这是一个适合 GitHub Pages 的永久公开网站。页面采用高级深色玻璃质感设计，别人可以用手机、电脑直接打开你的链接，并点击按钮下载资源。</p>
+        <p class="eyebrow" data-site="badge">Premium Digital Downloads</p>
+        <h1 data-site="heroTitle">高级资源下载中心</h1>
+        <p class="hero-subtitle" data-site="heroSubtitle">这是一个适合 GitHub Pages 的永久公开网站。页面采用高级深色玻璃质感设计，别人可以用手机、电脑直接打开你的链接，并点击按钮下载资源。</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#downloads">查看下载文件</a>
-          <a class="btn btn-ghost" href="#features">了解网站亮点</a>
+          <a class="btn btn-primary" href="#downloads" data-site="primaryButton">查看下载文件</a>
+          <a class="btn btn-ghost" href="#features" data-site="secondaryButton">了解网站亮点</a>
         </div>
       </div>
 
       <div class="hero-panel">
         <div class="orbital-card top-card">
           <span>PAGES</span>
-          <strong>永久免费公开访问</strong>
+          <strong data-site="topCard">永久免费公开访问</strong>
         </div>
         <div class="download-preview">
           <div class="preview-icon">AZ</div>
           <h2>Secure Download</h2>
-          <p>高级前台页面 + 静态真实下载体验</p>
+          <p data-site="previewText">高级前台页面 + 静态真实下载体验</p>
           <div class="metric-grid">
             <div><strong>24H</strong><span>公网访问</span></div>
             <div><strong>Free</strong><span>GitHub Pages</span></div>
@@ -445,7 +509,7 @@
         </div>
         <div class="orbital-card bottom-card">
           <span>MOBILE</span>
-          <strong>手机也能访问</strong>
+          <strong data-site="bottomCard">手机也能访问</strong>
         </div>
       </div>
     </section>
@@ -453,95 +517,79 @@
     <section id="features" class="section split-section">
       <div>
         <p class="section-kicker">What it does</p>
-        <h2>适合公开展示和下载</h2>
+        <h2 data-site="aboutTitle">适合公开展示和下载</h2>
       </div>
-      <p>这个版本不需要服务器、不需要银行卡、不需要后台运行。只要上传到 GitHub Pages，就会得到一个长期可访问的网址，例如 https://zy-api.github.io/Az/。</p>
+      <p data-site="aboutText">这个版本不需要服务器、不需要银行卡、不需要后台运行。只要上传到 GitHub Pages，就会得到一个长期可访问的网址，例如 https://zy-api.github.io/Az/。</p>
     </section>
 
     <section class="feature-grid">
       <article class="feature-card">
         <span class="card-number">01</span>
-        <h3>高级视觉设计</h3>
-        <p>深色背景、玻璃卡片、柔和光效和大标题排版，让页面看起来更专业。</p>
+        <h3 data-site="feature1Title">高级视觉设计</h3>
+        <p data-site="feature1Text">深色背景、玻璃卡片、柔和光效和大标题排版，让页面看起来更专业。</p>
       </article>
       <article class="feature-card">
         <span class="card-number">02</span>
-        <h3>永久公网访问</h3>
-        <p>使用 GitHub Pages 发布后，别人可以直接通过公开网址访问，不是 localhost。</p>
+        <h3 data-site="feature2Title">永久公网访问</h3>
+        <p data-site="feature2Text">使用 GitHub Pages 发布后，别人可以直接通过公开网址访问，不是 localhost。</p>
       </article>
       <article class="feature-card">
         <span class="card-number">03</span>
-        <h3>文件下载</h3>
-        <p>下面的按钮会下载真实文件。你后续也可以把按钮链接改成自己的网盘、GitHub 文件或服务器文件地址。</p>
+        <h3 data-site="feature3Title">文件下载</h3>
+        <p data-site="feature3Text">下面的按钮会下载真实文件。你后续也可以把按钮链接改成自己的网盘、GitHub 文件或服务器文件地址。</p>
       </article>
     </section>
 
     <section id="downloads" class="section downloads-section">
       <div class="section-heading">
         <p class="section-kicker">Downloads</p>
-        <h2>可下载文件</h2>
-        <p>这里先放了一个示例下载。你要换成自己的文件时，把按钮链接里的内容改成你的文件地址即可。</p>
+        <h2 data-site="downloadsTitle">可下载文件</h2>
+        <p data-site="downloadsText">这里先放了一个示例下载。你要换成自己的文件时，把按钮链接里的内容改成你的文件地址即可。</p>
       </div>
 
-      <div class="file-grid">
-        <article class="file-card">
-          <div>
-            <div class="file-icon">↓</div>
-            <h3>示例说明文件</h3>
-            <p>点击后会下载一个真实的 TXT 文件，用来证明下载功能可用。</p>
-          </div>
-          <div>
-            <div class="file-meta">
-              <span>TXT</span>
-              <span>可直接下载</span>
-            </div>
-            <a class="btn btn-download" download="AZ说明文件.txt" href="data:text/plain;charset=utf-8,%E8%BF%99%E6%98%AFAZ%20Premium%20Downloads%E7%9A%84%E7%A4%BA%E4%BE%8B%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%E3%80%82%0A%E4%BD%A0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E8%BF%99%E4%B8%AA%E6%8C%89%E9%92%AE%E6%94%B9%E6%88%90%E8%87%AA%E5%B7%B1%E7%9A%84%E6%96%87%E4%BB%B6%E5%9C%B0%E5%9D%80%E3%80%82">立即下载</a>
-          </div>
-        </article>
-
-        <article class="file-card">
-          <div>
-            <div class="file-icon">↗</div>
-            <h3>外部文件链接</h3>
-            <p>如果你的文件放在网盘、GitHub Release 或其他服务器，可以把这个按钮换成那个链接。</p>
-          </div>
-          <div>
-            <div class="file-meta">
-              <span>LINK</span>
-              <span>可替换</span>
-            </div>
-            <a class="btn btn-ghost" href="#about">查看修改方法</a>
-          </div>
-        </article>
-
-        <article class="file-card">
-          <div>
-            <div class="file-icon">★</div>
-            <h3>高级展示位</h3>
-            <p>你可以把这里改成产品资料、软件安装包、课程附件、压缩包或其他资源。</p>
-          </div>
-          <div>
-            <div class="file-meta">
-              <span>PREMIUM</span>
-              <span>展示卡片</span>
-            </div>
-            <a class="btn btn-ghost" href="#about">发布到 Pages</a>
-          </div>
-        </article>
-      </div>
+      <div class="file-grid" id="downloadsGrid"></div>
     </section>
 
     <section id="about" class="section split-section">
       <div>
         <p class="section-kicker">How to edit</p>
-        <h2>怎么改成你的内容</h2>
+        <h2 data-site="editTitle">怎么改成你的内容</h2>
       </div>
-      <p>用 GitHub 手机网页打开仓库里的 index.html，点击编辑按钮，就可以改标题、文字和下载链接。这个 GitHub Pages 版本没有后台系统，因为 Pages 只能运行静态网页，不能运行数据库和登录后台。</p>
+      <p data-site="editText">用 GitHub 手机网页打开仓库里的 site-content.js，点击编辑按钮，就可以改标题、文字和下载链接。这个 GitHub Pages 版本没有真正后台系统，因为 Pages 只能运行静态网页，不能运行数据库和登录后台。</p>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>© 2026 AZ Premium Downloads. Powered by GitHub Pages.</p>
+    <p data-site="footer">© 2026 AZ Premium Downloads. Powered by GitHub Pages.</p>
   </footer>
+  <script>
+    const content = window.SITE_CONTENT || {};
+    document.title = content.pageTitle || document.title;
+    document.querySelectorAll("[data-site]").forEach((node) => {
+      const key = node.dataset.site;
+      if (const key = node.dataset.site;
+      if (content[key]) node.textContent = content[key];
+    });
+
+    const downloadsGrid = document.getElementById("downloadsGrid");
+    const files = Array.isArray(content.files) ? content.files : [];
+    downloadsGrid.innerHTML = files.map((file) => `
+      <article class="file-card">
+        <div>
+          <div class="file-icon">${file.icon || "↓"}</div>
+          <h3>${file.title || "未命名文件"}</h3>
+          <p>${file.description || "点击按钮下载文件。"}</p>
+        </div>
+        <div>
+          <div class="file-meta">
+            <span>${file.type || "FILE"}</span>
+            <span>${file.meta || "可下载"}</span>
+          </div>
+          <a class="btn ${file.primary ? "btn-download" : "btn-ghost"}" ${file.download ? `download="${file.download}"` : ""} href="${file.url || "#"}">${file.button || "立即下载"}</a>
+        </div>
+      </article>
+    `).join("");
+  </script>
 </body>
 </html>
+
