@@ -31,14 +31,14 @@ window.SITE_CONTENT = {
   "files": [
     {
       "icon": "↓",
-      "title": "示例说明文件",
-      "description": "点击后会下载一个真实的 TXT 文件，用来证明下载功能可用。",
-      "type": "TXT",
+      "title": "PUBG MOBLOE清理文件",
+      "description": "点击按钮下载文件。",
+      "type": "zil",
       "meta": "可直接下载",
       "button": "立即下载",
       "primary": true,
-      "download": "AZ说明文件.txt",
-      "url": "data:text/plain;charset=utf-8,%E8%BF%99%E6%98%AFAZ%20Premium%20Downloads%E7%9A%84%E7%A4%BA%E4%BE%8B%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%E3%80%82%0A%E4%BD%A0%E5%8F%AF%E4%BB%A5%E6%8A%8A%E8%BF%99%E4%B8%AA%E6%8C%89%E9%92%AE%E6%94%B9%E6%88%90%E8%87%AA%E5%B7%B1%E7%9A%84%E6%96%87%E4%BB%B6%E5%9C%B0%E5%9D%80%E3%80%82"
+      "download": "PUBG清理文件",
+      "url": "https://1851738406.share.123pan.cn/123pan/nluBvd-22EZ3"
     },
     {
       "icon": "↗",
