@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AZ 后台编辑</title>
+  <script src="./site-content.js"></script>
+  <style>
+    :root {
+      --text: #10233f;
+      --muted: #5f718a;
+      --line: rgba(29, 91, 166, .14);
+      --panel: rgba(255, 255, 255, .78);
+      --accent: #2563eb;
+      --danger: #ff647c;
+      --shadow: 0 22px 70px rgba(37, 99, 235, .16);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(circle at 12% 12%, rgba(37, 99, 235, .14), transparent 32rem),
+        radial-gradient(circle at 88% 6%, rgba(56, 189, 248, .16), transparent 30rem),
+        linear-gradient(135deg, #f8fbff 0%, #edf5ff 48%, #ffffff 100%);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button:focus,
+    input:focus,
+    textarea:focus,
+    a:focus {
+      outline: none;
+    }
+
+    .shell {
+      width: min(960px, calc(100% - 24px));
+      margin: 0 auto;
+      padding: 20px 0 60px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: .1em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 10px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 30% 22%, rgba(255,255,255,.95), transparent 24%),
+        linear-gradient(135deg, #60a5fa, #2563eb 58%, #1e40af);
+      overflow: hidden;
+    }
+
+    .brand-mark svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .panel,
+    .file-card,
+    .notice {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(145deg, rgba(255,255,255,.96), rgba(255,255,255,.76));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(20px);
+    }
+
+    .panel {
+      padding: 18px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 8vw, 3.2rem);
+      line-height: 1;
+      letter-spacing: -.05em;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 1.3rem;
+    }
+
+    p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    label {
+      display: grid;
+      gap: 7px;
+      margin-bottom: 12px;
+      color: #27466f;
+      font-size: .92rem;
+      font-weight: 800;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px 14px;
+      color: var(--text);
+      background: rgba(255, 255, 255, .86);
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 17px;
+      border: 0;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 850;
+      color: var(--text);
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(135deg, #38bdf8, #2563eb);
+      box-shadow: 0 16px 42px rgba(37, 99, 235, .24);
+    }
+
+    .btn-ghost {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.72);
+    }
+
+    .btn-danger {
+      border: 1px solid rgba(255,100,124,.35);
+      color: #ffd9df;
+      background: rgba(255,100,124,.15);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .file-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .file-card {
+      padding: 14px;
+    }
+
+    .icon-picker {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .icon-option {
+      display: grid;
+      place-items: center;
+      gap: 7px;
+      min-height: 92px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,.75);
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .icon-option.active {
+      border-color: rgba(37, 99, 235, .55);
+      box-shadow: 0 14px 34px rgba(37, 99, 235, .18);
+      background: linear-gradient(145deg, #ffffff, #eff6ff);
+    }
+
+    .icon-art {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 30% 22%, rgba(255,255,255,.9), transparent 22%),
+        linear-gradient(145deg, #7dd3fc, #2563eb 56%, #172554);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.55), 0 14px 24px rgba(37,99,235,.2);
+    }
+
+    .icon-art svg {
+      width: 30px;
+      height: 30px;
+      filter: drop-shadow(0 8px 12px rgba(15,23,42,.18));
+    }
+
+    .icon-option span {
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    .notice {
+      padding: 14px;
+      margin-bottom: 16px;
+      color: var(--muted);
+    }
+
+    .status {
+      white-space: pre-wrap;
+      color: #2563eb;
+    }
+
+    @media (max-width: 640px) {
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .icon-picker {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .actions,
+      .actions .btn,
+      .topbar .btn {
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="topbar">
+      <a class="brand" href="./index.html"><span class="brand-mark" id="adminBrandIcon"></span>AZ 后台</a>
+      <a class="btn btn-ghost" href="./index.html">查看前台</a>
+    </div>
+
+    <section class="panel">
+      <h1>编辑前台</h1>
+      <p>这里保存后，会修改 GitHub 仓库里的 <code>site-content.js</code>。GitHub Pages 更新后，前台会同步变化。</p>
+    </section>
+
+    <section class="notice">
+      <strong>第一次使用需要 GitHub Token</strong>
+      <p>Token 只保存在你手机浏览器里，用来提交修改。权限只需要给仓库 Contents 读写。不要把 Token 发给别人。</p>
+    </section>
+
+    <section class="panel">
+      <h2>GitHub 保存设置</h2>
+      <div class="grid">
+        <label>GitHub 用户名<input id="owner" value="Zy-api"></label>
+        <label>仓库名<input id="repo" value="Az"></label>
+        <label>分支<input id="branch" value="main"></label>
+        <label>Token<input id="token" type="password" placeholder="粘贴你的 GitHub Token"></label>
+      </div>
+      <div class="actions">
+        <button class="btn btn-ghost" onclick="saveToken()">保存 Token 到本机</button>
+        <button class="btn btn-ghost" onclick="loadFromGithub()">从 GitHub 读取最新内容</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>首页内容</h2>
+      <label>网站标题<input data-key="pageTitle"></label>
+      <label>品牌名<input data-key="brand"></label>
+      <label>品牌小图标</label>
+      <div id="brandIconPicker" class="icon-picker"></div>
+      <label>前台主视觉图标</label>
+      <div id="heroIconPicker" class="icon-picker"></div>
+      <label>顶部标签<input data-key="badge"></label>
+      <label>首页大标题<input data-key="heroTitle"></label>
+      <label>首页副标题<textarea data-key="heroSubtitle"></textarea></label>
+      <div class="grid">
+        <label>主按钮<input data-key="primaryButton"></label>
+        <label>副按钮<input data-key="secondaryButton"></label>
+      </div>
+      <label>介绍标题<input data-key="aboutTitle"></label>
+      <label>介绍内容<textarea data-key="aboutText"></textarea></label>
+      <label>下载区标题<input data-key="downloadsTitle"></label>
+      <label>下载区说明<textarea data-key="downloadsText"></textarea></label>
+      <label>页脚<input data-key="footer"></label>
+    </section>
+
+    <section class="panel">
+      <h2>下载文件卡片</h2>
+      <div id="fileList" class="file-list"></div>
+      <div class="actions">
+        <button class="btn btn-ghost" onclick="addFile()">新增文件卡片</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>保存</h2>
+      <div class="actions">
+        <button class="btn btn-primary" onclick="saveToGithub()">保存并同步前台</button>
+      </div>
+      <p id="status" class="status"></p>
+    </section>
+  </main>
+
+  <script>
+    const ICON_LIBRARY = {
+      crystal: { name: "晶体", svg: '<svg viewBox="0 0 64 64" fill="none"><path d="M32 4 55 18 48 49 32 60 16 49 9 18 32 4Z" fill="url(#g1)"/><path d="M32 4v56M9 18h46M16 49l16-31 16 31" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".9"/><defs><linearGradient id="g1" x1="12" y1="7" x2="55" y2="58"><stop stop-color="#E0F2FE"/><stop offset=".45" stop-color="#38BDF8"/><stop offset="1" stop-color="#1D4ED8"/></linearGradient></defs></svg>' },
+      vault: { name: "保险库", svg: '<svg viewBox="0 0 64 64" fill="none"><rect x="9" y="12" width="46" height="40" rx="12" fill="url(#g2)"/><circle cx="32" cy="32" r="12" fill="rgba(255,255,255,.22)" stroke="white" stroke-width="3"/><path d="M32 21v7M32 36v7M21 32h7M36 32h7M25 25l5 5M39 39l-5-5M39 25l-5 5M25 39l5-5" stroke="white" stroke-width="3" stroke-linecap="round"/><defs><linearGradient id="g2" x1="9" y1="12" x2="55" y2="52"><stop stop-color="#BAE6FD"/><stop offset=".52" stop-color="#2563EB"/><stop offset="1" stop-color="#172554"/></linearGradient></defs></svg>' },
+      cloud: { name: "云端", svg: '<svg viewBox="0 0 64 64" fill="none"><path d="M22 49h24c8 0 14-5 14-13 0-7-5-12-12-13C45 14 38 8 29 8 18 8 10 17 10 28 4 31 1 36 1 42c0 5 4 7 10 7h11Z" fill="url(#g3)"/><path d="M19 36h26M26 29h14" stroke="white" stroke-width="4" stroke-linecap="round" opacity=".9"/><defs><linearGradient id="g3" x1="5" y1="8" x2="58" y2="52"><stop stop-color="#EFF6FF"/><stop offset=".5" stop-color="#38BDF8"/><stop offset="1" stop-color="#2563EB"/></linearGradient></defs></svg>' },
+      rocket: { name: "火箭", svg: '<svg viewBox="0 0 64 64" fill="none"><path d="M39 6c9 3 16 10 19 19L42 41 23 22 39 6Z" fill="url(#g4)"/><path d="M22 23 11 29l13 11M41 42l-6 11-11-13" fill="#93C5FD"/><circle cx="42" cy="22" r="6" fill="white" opacity=".92"/><path d="M18 46c-4 1-8 4-10 10 6-2 9-6 10-10Z" fill="#38BDF8"/><defs><linearGradient id="g4" x1="23" y1="6" x2="58" y2="41"><stop stop-color="#EFF6FF"/><stop offset=".45" stop-color="#60A5FA"/><stop offset="1" stop-color="#1D4ED8"/></linearGradient></defs></svg>' },
+      shield: { name: "盾牌", svg: '<svg viewBox="0 0 64 64" fill="none"><path d="M32 5 55 14v16c0 15-9 25-23 30C18 55 9 45 9 30V14L32 5Z" fill="url(#g5)"/><path d="m21 33 7 7 16-18" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><defs><linearGradient id="g5" x1="9" y1="5" x2="55" y2="60"><stop stop-color="#DBEAFE"/><stop offset=".48" stop-color="#3B82F6"/><stop offset="1" stop-color="#1E3A8A"/></linearGradient></defs></svg>' }
+    };
+
+    let content = structuredClone(window.SITE_CONTENT || {});
+    let currentSha = "";
+    const draftKey = "az_admin_content_draft";
+
+    const fields = document.querySelectorAll("[data-key]");
+    const statusBox = document.getElementById("status");
+    document.getElementById("adminBrandIcon").innerHTML = ICON_LIBRARY.crystal.svg;
+
+    function setStatus(text) {
+      statusBox.textContent = text;
+    }
+
+    function saveToken() {
+      localStorage.setItem("az_admin_owner", document.getElementById("owner").value.trim());
+      localStorage.setItem("az_admin_repo", document.getElementById("repo").value.trim());
+      localStorage.setItem("az_admin_branch", document.getElementById("branch").value.trim());
+      localStorage.setItem("az_admin_token", document.getElementById("token").value.trim());
+      setStatus("已保存到本机浏览器。");
+    }
+
+    function loadSettings() {
+      document.getElementById("owner").value = localStorage.getItem("az_admin_owner") || "Zy-api";
+      document.getElementById("repo").value = localStorage.getItem("az_admin_repo") || "Az";
+      document.getElementById("branch").value = localStorage.getItem("az_admin_branch") || "main";
+      document.getElementById("token").value = localStorage.getItem("az_admin_token") || "";
+    }
+
+    function renderForm() {
+      fields.forEach((field) => {
+        field.value = content[field.dataset.key] || "";
+      });
+      renderIconPickers();
+      renderFiles();
+      bindDraftEvents();
+    }
+
+    function collectForm() {
+      fields.forEach((field) => {
+        content[field.dataset.key] = field.value;
+      });
+      content.brandIcon = content.brandIcon || "crystal";
+      content.heroIcon = content.heroIcon || "vault";
+      content.files = [...document.querySelectorAll(".file-card")].map((card) => ({
+        icon: card.querySelector("[data-file='icon']").value || "↓",
+        title: card.querySelector("[data-file='title']").value || "未命名文件",
+        description: card.querySelector("[data-file='description']").value || "点击按钮下载文件。",
+        type: card.querySelector("[data-file='type']").value || "FILE",
+        meta: card.querySelector("[data-file='meta']").value || "可下载",
+        button: card.querySelector("[data-file='button']").value || "立即下载",
+        primary: card.querySelector("[data-file='primary']").checked,
+        download: card.querySelector("[data-file='download']").value,
+        url: card.querySelector("[data-file='url']").value || "#"
+      }));
+    }
+
+    function saveDraft() {
+      try {
+        collectForm();
+        localStorage.setItem(draftKey, JSON.stringify(content));
+        setStatus("已自动保存到本机草稿，还没有同步到前台。要同步前台，请点“保存并同步前台”。");
+      } catch (error) {
+        console.warn(error);
+      }
+    }
+
+    function loadDraft() {
+      const draft = localStorage.getItem(draftKey);
+      if (!draft) return false;
+      try {
+        content = JSON.parse(draft);
+        renderForm();
+        setStatus("已恢复你上次没同步的本机草稿。确认无误后点“保存并同步前台”。");
+        return true;
+      } catch {
+        localStorage.removeItem(draftKey);
+        return false;
+      }
+    }
+
+    function clearDraft() {
+      localStorage.removeItem(draftKey);
+    }
+
+    function bindDraftEvents() {
+      document.querySelectorAll("input, textarea").forEach((node) => {
+        if (node.dataset.boundDraft === "1") return;
+        node.dataset.boundDraft = "1";
+        node.addEventListener("input", debounce(saveDraft, 500));
+        node.addEventListener("change", saveDraft);
+      });
+    }
+
+    function renderFiles() {
+      const list = document.getElementById("fileList");
+      const files = Array.isArray(content.files) ? content.files : [];
+      list.innerHTML = files.map((file, index) => `
+        <div class="file-card">
+          <div class="grid">
+            <label>图标 ID<input data-file="icon" value="${escapeAttr(file.icon || "cloud")}" placeholder="crystal / vault / cloud / rocket / shield"></label>
+            <label>类型<input data-file="type" value="${escapeAttr(file.type || "FILE")}"></label>
+          </div>
+          <label>标题<input data-file="title" value="${escapeAttr(file.title || "")}"></label>
+          <label>说明<textarea data-file="description">${escapeHtml(file.description || "")}</textarea></label>
+          <div class="grid">
+            <label>右侧小字<input data-file="meta" value="${escapeAttr(file.meta || "可下载")}"></label>
+            <label>按钮文字<input data-file="button" value="${escapeAttr(file.button || "立即下载")}"></label>
+          </div>
+          <label>下载文件名，可不填<input data-file="download" value="${escapeAttr(file.download || "")}"></label>
+          <label>下载链接<input data-file="url" value="${escapeAttr(file.url || "#")}"></label>
+          <label><input data-file="primary" type="checkbox" ${file.primary ? "checked" : ""}> 使用蓝色主按钮</label>
+          <div class="actions">
+            <button class="btn btn-danger" type="button" onclick="removeFile(${index})">删除这个卡片</button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function renderIconPickers() {
+      renderIconPicker("brandIconPicker", "brandIcon", content.brandIcon || "crystal");
+      renderIconPicker("heroIconPicker", "heroIcon", content.heroIcon || "vault");
+    }
+
+    function renderIconPicker(containerId, key, current) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = Object.entries(ICON_LIBRARY).map(([id, icon]) => `
+        <button type="button" class="icon-option ${id === current ? "active" : ""}" onclick="selectIcon('${key}', '${id}')">
+          <span class="icon-art">${icon.svg}</span>
+          <span>${icon.name}</span>
+        </button>
+      `).join("");
+    }
+
+    function selectIcon(key, id) {
+      content[key] = id;
+      renderIconPickers();
+      saveDraft();
+    }
+
+    function addFile() {
+      collectForm();
+      content.files = content.files || [];
+      content.files.push({
+        icon: "cloud",
+        title: "新文件",
+        description: "这里填写文件说明。",
+        type: "FILE",
+        meta: "可下载",
+        button: "立即下载",
+        primary: true,
+        download: "",
+        url: "#"
+      });
+      renderFiles();
+    }
+
+    function removeFile(index) {
+      collectForm();
+      content.files.splice(index, 1);
+      renderFiles();
+    }
+
+    async function loadFromGithub() {
+      try {
+        const cfg = getConfig();
+        setStatus("正在读取 GitHub 最新内容...");
+        const res = await fetch(apiUrl(cfg), {
+          headers: {
+            "Authorization": `Bearer ${cfg.token}`,
+            "Accept": "application/vnd.github+json"
+          }
+        });
+        if (!res.ok) throw new Error(await res.text());
+        const data = await res.json();
+        currentSha = data.sha;
+        const text = decodeBase64(data.content);
+        content = parseSiteContent(text);
+        clearDraft();
+        renderForm();
+        setStatus("已读取 GitHub 最新内容。本机草稿已清除。");
+      } catch (error) {
+        setStatus("读取失败：\n" + error.message);
+      }
+    }
+
+    async function saveToGithub() {
+      try {
+        collectForm();
+        const cfg = getConfig();
+        if (!cfg.token) {
+          setStatus("请先填写 GitHub Token。");
+          return;
+        }
+        setStatus("正在保存到 GitHub...");
+
+        if (!currentSha) {
+          const res = await fetch(apiUrl(cfg), {
+            headers: {
+              "Authorization": `Bearer ${cfg.token}`,
+              "Accept": "application/vnd.github+json"
+            }
+          });
+          if (res.ok) {
+            const data = await res.json();
+            currentSha = data.sha;
+          }
+        }
+
+        const newFile = `// 这个文件由 admin.html 后台生成。\n// 你也可以手动编辑这里的文字和下载链接。\n\nwindow.SITE_CONTENT = ${JSON.stringify(content, null, 2)};\n`;
+        const body = {
+          message: "Update site content from admin",
+          content: encodeBase64(newFile),
+          branch: cfg.branch
+        };
+        if (currentSha) body.sha = currentSha;
+
+        const saveRes = await fetch(apiUrl(cfg), {
+          method: "PUT",
+          headers: {
+            "Authorization": `Bearer ${cfg.token}`,
+            "Accept": "application/vnd.github+json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(body)
+        });
+        if (!saveRes.ok) throw new Error(await saveRes.text());
+        const result = await saveRes.json();
+        currentSha = result.content.sha;
+        clearDraft();
+        setStatus("保存成功。等待 1 到 3 分钟后，前台会同步更新。");
+      } catch (error) {
+        setStatus("保存失败：\n" + error.message);
+      }
+    }
+
+    function getConfig() {
+      return {
+        owner: document.getElementById("owner").value.trim(),
+        repo: document.getElementById("repo").value.trim(),
+        branch: document.getElementById("branch").value.trim() || "main",
+        token: document.getElementById("token").value.trim()
+      };
+    }
+
+    function apiUrl(cfg) {
+      return `https://api.github.com/repos/${encodeURIComponent(cfg.owner)}/${encodeURIComponent(cfg.repo)}/contents/site-content.js?ref=${encodeURIComponent(cfg.branch)}`;
+    }
+
+    function parseSiteContent(text) {
+      const match = text.match(/window\.SITE_CONTENT\s*=\s*([\s\S]*?);\s*$/);
+      if (!match) throw new Error("site-content.js 格式不正确");
+      return Function(`"use strict"; return (${match[1]});`)();
+    }
+
+    function encodeBase64(text) {
+      return btoa(unescape(encodeURIComponent(text)));
+    }
+
+    function decodeBase64(text) {
+      return decodeURIComponent(escape(atob(text.replace(/\s/g, ""))));
+    }
+
+    function escapeHtml(text) {
+      return String(text ?? "").replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[char]));
+    }
+
+    function escapeAttr(text) {
+      return escapeHtml(text);
+    }
+
+    function debounce(fn, delay) {
+      let timer;
+      return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn(...args), delay);
+      };
+    }
+
+    loadSettings();
+    if (!loadDraft()) renderForm();
+  </script>
+</body>
+</html>
