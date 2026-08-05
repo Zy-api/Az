@@ -46,7 +46,7 @@ window.SITE_CONTENT = {
     {
       "icon": "link",
       "title": "MT管理器",
-      "description": "无",
+      "description": "专业安卓文件管理工具，内置解压、代码编辑、APK修改等多种功能",
       "type": "APK",
       "meta": "可直接下载",
       "button": "立即下载",
