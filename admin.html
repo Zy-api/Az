@@ -1852,8 +1852,7 @@
           return;
         }
         if (saved.mode === "register") {
-          let existingProfile = await getCloudProfile(saved.email);
-          if (!existingProfile) existingProfile = getSavedProfile();
+          const existingProfile = await getCloudProfile(saved.email);
           if (existingProfile && existingProfile.email === saved.email) {
             showAuthError("这个邮箱已经注册过账号了，不能重复注册。请直接登录。");
             return;
