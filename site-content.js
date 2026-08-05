@@ -52,7 +52,7 @@ window.SITE_CONTENT = {
       "button": "立即下载",
       "primary": true,
       "download": "",
-      "url": "https://txgz02-httpdown.guangyacdn.com/download/?fid=fDsXWY/zdORqHs6mzBzZzwFoich1zMkBAAAAAP1CtnWQIe7poBiOuUDjXVVlETzB&mid=666&threshold=102400&tid=08AE3F003B812CBE9D6A0C39CA8C81A6&srcid=0&verno=2&ms=104857600&th=104857600&p=qc9Iib32PqAqsI3N-Io6VOsJHIrxJxi8YSST9ufAKDv1_H1EZVmDkZSnFdnUHwpHYDVSyTH8vmA5XXhrCtLhNjnFoJjQOc2HbHx23CRUaOdJHRhdsEKNw6fj6a--D0jpYU7uC2BIKIubNYIZV-2UAHzZ-2iJ40JYPgYQ-AC-zfXkGhgjOUCJNEcwVPSuPnal1Db5YhH_vMwTygk9Sm2ym1Rx8SatYQv909OqfiEwUntpjRES4lmKQ-kwtep6nSQ__Olvh6oqReJUC7njQY5d8MYpcc0h8dU1kyIF58OWI8OsibBPxIBNDmInyw-WNL78btYQlFh87O8oTiE9F4LlWlE3DA4S&g=FD42B6759021EEE9A0188EB940E35D5565113CC1&f=30002293&ts=1785913847&s=b1e96227ea021855&at=C5A0E9CAE16EB4CE3EE11D29BB631AC1"
+      "url": "https://hk.gh-proxy.com/https://github.com/Zy-api/AppShare/releases/download/Az888/MT._2.26.3-clone.apk"
     },
     {
       "icon": "folder",
@@ -63,7 +63,7 @@ window.SITE_CONTENT = {
       "button": "立即下载",
       "primary": true,
       "download": "",
-      "url": "https://sh01-httpdown.guangyacdn.com/download/?fid=D6jyEx6M8hRSovL41Gv6YtgOQgFMLY8DAAAAAPkyDCXvMZbJnqOQ9qBgc2avClPq&mid=666&threshold=102400&tid=32D9B76EC667B8B2B9341BB800400EDF&srcid=0&verno=2&ms=104857600&th=104857600&p=6D3sq9M9fC07zBM7KOP9fu1iH76S_ef8DRV6Lt_ocw178OHbqEPVm8Gv-9NL_cd38Hb0izbLa4h23-jVEcXvsg9HJey6ew_u1uHDX2i6EzE7e33juQPl9DYVSthLmp0esEQ3xG1CCtaldtX5RgTPvUaRnyHxX3AxvA_GUU73ylxj1KnjDaTtr4-lWsOaYw7XM5wS1941SZkgmcRx3RJS8UU9o1iJnBt-fOboK9u4nQtPTVWhtZFnRMqWWJO8T2jkbWimfLfSVvBAp8uEOIRhlacJ_NX7JQ-JHqlNw-PP8peksA-O5BRgaJPUn_zgfLm-Rvkq19OoMhBIPm20U9VT4BquF_Xf1KirPJ43cQ&g=F9320C25EF3196C99EA390F6A0607366AF0A53EA&f=59714892&ts=1785913219&s=c69cc38ddf47d20c&at=E619F3411E62B7F88A25C3C7E6674346"
+      "url": "https://hk.gh-proxy.com/https://github.com/Zy-api/AppShare/releases/download/Az888/_3.7.apk"
     },
     {
       "icon": "folder",
@@ -74,7 +74,7 @@ window.SITE_CONTENT = {
       "button": "立即下载",
       "primary": true,
       "download": "",
-      "url": "https://hssh02-httpdown.guangyacdn.com/download/?fid=0St+F3iTn+NNT23XUrE/fKVyHzdkNgwDAAAAAEsq19VPO5ao1ZEaRoyiXiDkA8nA&mid=666&threshold=102400&tid=872C00647DC7C2DB475182327F964559&srcid=0&verno=2&ms=104857600&th=104857600&p=Ep5uRdUJ15maMaYWk-i6t8jx6alNdW4hd7q1-anR8YzCrOYAt5LvYiQm8MpLMQ9qX_qsibptyMpysBy2mXegMfYbicbrVLxAIr3QNld-xc7A97sEbrgy7qcznFR5UoAIoXJa75-rYUyB66L7YU_NgR7ax3VXW4MHa7w2ah7pVjxY6L4WiBc2TftXOM_magol0HooKUeCvNRAUmLwCHAmC6X-e1rOxGxJ8Lsk768sxObDobBWF2Xb518exnw-clJUTe0tgQBg_a8E303Z-qKVYU32ExPSR6yuzaBS3l1NKhy0bufhikyKMVESg1wOzGRkZdgG0lZXTs2zJ7iXKnY&g=4B2AD7D54F3B96A8D5911A468CA25E20E403C9C0&f=51132004&ts=1785914142&s=f2bea97bb17a60e8&at=79AACA795BD0C348BFF5A86A2706654C"
+      "url": "https://hk.gh-proxy.org/https:/github.com/Zy-api/AppShare/releases/download/Az888/3A._1.0.1.apk"
     },
     {
       "icon": "folder",
@@ -85,7 +85,7 @@ window.SITE_CONTENT = {
       "button": "立即下载",
       "primary": true,
       "download": "",
-      "url": "https://sh02-httpdown.guangyacdn.com/download/?fid=en4ye0+cpQI5jq68f7KtQFamxAlthU8AAAAAACuQtFnkdBL5zkClNGEf6IcnuUM1&mid=666&threshold=102400&tid=C570DDA7487586341055676419E19A63&srcid=0&verno=2&ms=104857600&th=104857600&p=72PhbbCVz3FximL4LrsDEiO9Ch79WFIurRpdSytPq_kkuzdSAwUhXFxGtVISVnqHkPBIpq67bZaVP4PwW7-VOmcWC8l9HbpotVv9Ba9Sf8JvTGVDQjOIseoYhfmrBFejMwKSkElVKD3mwf3GNTuTg4_jU7WecRZxkVaj-Mjn_aqumEstbDUkcUoav5XWPcS88sXj5465CpU51LrqWuE8W8vmhPutUag3Hd6E9VTI0FglN9O2dNWURDoZq3CDrU6SL9Ibs5mMTCFFXp7PAEtRSVQX6v8yCXZOnRB8hl-OcimjiX3Fy5WMR0b2oAxlu2TntkQ-&g=2B90B459E47412F9CE40A534611FE88727B94335&f=5211501&ts=1785916234&s=fb0e47c041e1204c&at=AD62650DA85B0DBDB3F2F163953158C5"
+      "url": "https://hk.gh-proxy.com/https://github.com/Zy-api/AppShare/releases/download/Az888/ADB.apk"
     },
     {
       "icon": "folder",
