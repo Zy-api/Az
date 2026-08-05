@@ -44,15 +44,15 @@ window.SITE_CONTENT = {
       "url": "https://1851738406.share.123pan.cn/123pan/nluBvd-22EZ3"
     },
     {
-      "icon": "rocket",
-      "title": "外部文件链接",
-      "description": "如果你的文件放在网盘、GitHub Release 或其他服务器，可以把这个按钮换成那个链接。",
-      "type": "LINK",
-      "meta": "可替换",
-      "button": "查看修改方法",
-      "primary": false,
+      "icon": "link",
+      "title": "MT管理器",
+      "description": "无",
+      "type": "APK",
+      "meta": "可直接下载",
+      "button": "立即下载",
+      "primary": true,
       "download": "",
-      "url": "#about"
+      "url": "https://pixeldrain.com/api/file/8d3UA5xu?download"
     },
     {
       "icon": "shield",
