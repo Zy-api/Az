@@ -23,7 +23,7 @@ window.SITE_CONTENT = {
   "feature1Title": "高级视觉设计",
   "feature1Text": "蓝白配色、玻璃卡片、柔和光效和更克制的字号，让页面更清爽、更干净。",
   "feature2Title": "永久公网访问",
-  "feature2Text": "使用 GitHub Pages 发布后，别人可以直接通过公开网址访问，不是 localhost。",
+  "feature2Text": "全网公开访问渠道，网址长期稳定在线，多设备均可无障碍浏览下载。",
   "feature3Title": "文件下载",
   "feature3Text": "点击对应卡片内的下载按钮，即可保存所需文件资源。",
   "downloadsTitle": "可下载文件",
