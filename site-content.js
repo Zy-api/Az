@@ -59,11 +59,22 @@ window.SITE_CONTENT = {
       "title": "Telegram",
       "description": "全球热门加密通讯软件，支持跨设备云同步、大文件传输与私密聊天功能。",
       "type": "APK",
-      "meta": "展示卡片",
+      "meta": "可直接下载",
       "button": "立即下载",
       "primary": true,
       "download": "",
       "url": "https://sh01-httpdown.guangyacdn.com/download/?fid=D6jyEx6M8hRSovL41Gv6YtgOQgFMLY8DAAAAAPkyDCXvMZbJnqOQ9qBgc2avClPq&mid=666&threshold=102400&tid=32D9B76EC667B8B2B9341BB800400EDF&srcid=0&verno=2&ms=104857600&th=104857600&p=6D3sq9M9fC07zBM7KOP9fu1iH76S_ef8DRV6Lt_ocw178OHbqEPVm8Gv-9NL_cd38Hb0izbLa4h23-jVEcXvsg9HJey6ew_u1uHDX2i6EzE7e33juQPl9DYVSthLmp0esEQ3xG1CCtaldtX5RgTPvUaRnyHxX3AxvA_GUU73ylxj1KnjDaTtr4-lWsOaYw7XM5wS1941SZkgmcRx3RJS8UU9o1iJnBt-fOboK9u4nQtPTVWhtZFnRMqWWJO8T2jkbWimfLfSVvBAp8uEOIRhlacJ_NX7JQ-JHqlNw-PP8peksA-O5BRgaJPUn_zgfLm-Rvkq19OoMhBIPm20U9VT4BquF_Xf1KirPJ43cQ&g=F9320C25EF3196C99EA390F6A0607366AF0A53EA&f=59714892&ts=1785913219&s=c69cc38ddf47d20c&at=E619F3411E62B7F88A25C3C7E6674346"
+    },
+    {
+      "icon": "folder",
+      "title": "3A加速器",
+      "description": "专业游戏网络加速工具，一键优化外服游戏网络，缓解卡顿、高延迟与掉线问题。",
+      "type": "APK",
+      "meta": "可直接下载",
+      "button": "立即下载",
+      "primary": true,
+      "download": "",
+      "url": "https://hssh02-httpdown.guangyacdn.com/download/?fid=0St+F3iTn+NNT23XUrE/fKVyHzdkNgwDAAAAAEsq19VPO5ao1ZEaRoyiXiDkA8nA&mid=666&threshold=102400&tid=872C00647DC7C2DB475182327F964559&srcid=0&verno=2&ms=104857600&th=104857600&p=Ep5uRdUJ15maMaYWk-i6t8jx6alNdW4hd7q1-anR8YzCrOYAt5LvYiQm8MpLMQ9qX_qsibptyMpysBy2mXegMfYbicbrVLxAIr3QNld-xc7A97sEbrgy7qcznFR5UoAIoXJa75-rYUyB66L7YU_NgR7ax3VXW4MHa7w2ah7pVjxY6L4WiBc2TftXOM_magol0HooKUeCvNRAUmLwCHAmC6X-e1rOxGxJ8Lsk768sxObDobBWF2Xb518exnw-clJUTe0tgQBg_a8E303Z-qKVYU32ExPSR6yuzaBS3l1NKhy0bufhikyKMVESg1wOzGRkZdgG0lZXTs2zJ7iXKnY&g=4B2AD7D54F3B96A8D5911A468CA25E20E403C9C0&f=51132004&ts=1785914142&s=f2bea97bb17a60e8&at=79AACA795BD0C348BFF5A86A2706654C"
     }
   ]
 };
