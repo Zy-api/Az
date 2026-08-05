@@ -52,14 +52,14 @@ window.SITE_CONTENT = {
       "button": "立即下载",
       "primary": true,
       "download": "",
-      "url": "https://pixeldrain.com/api/file/8d3UA5xu?download"
+      "url": "https://txgz02-httpdown.guangyacdn.com/download/?fid=fDsXWY/zdORqHs6mzBzZzwFoich1zMkBAAAAAP1CtnWQIe7poBiOuUDjXVVlETzB&mid=666&threshold=102400&tid=08AE3F003B812CBE9D6A0C39CA8C81A6&srcid=0&verno=2&ms=104857600&th=104857600&p=qc9Iib32PqAqsI3N-Io6VOsJHIrxJxi8YSST9ufAKDv1_H1EZVmDkZSnFdnUHwpHYDVSyTH8vmA5XXhrCtLhNjnFoJjQOc2HbHx23CRUaOdJHRhdsEKNw6fj6a--D0jpYU7uC2BIKIubNYIZV-2UAHzZ-2iJ40JYPgYQ-AC-zfXkGhgjOUCJNEcwVPSuPnal1Db5YhH_vMwTygk9Sm2ym1Rx8SatYQv909OqfiEwUntpjRES4lmKQ-kwtep6nSQ__Olvh6oqReJUC7njQY5d8MYpcc0h8dU1kyIF58OWI8OsibBPxIBNDmInyw-WNL78btYQlFh87O8oTiE9F4LlWlE3DA4S&g=FD42B6759021EEE9A0188EB940E35D5565113CC1&f=30002293&ts=1785913847&s=b1e96227ea021855&at=C5A0E9CAE16EB4CE3EE11D29BB631AC1"
     },
     {
       "icon": "shield",
       "title": "Telegram",
       "description": "全球热门加密通讯软件，支持跨设备云同步、大文件传输与私密聊天功能。",
       "type": "APK",
-      "meta": "可直接下载",
+      "meta": "展示卡片",
       "button": "立即下载",
       "primary": true,
       "download": "",
