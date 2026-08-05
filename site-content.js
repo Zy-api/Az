@@ -28,9 +28,9 @@ window.SITE_CONTENT = {
   "feature3Text": "下面的按钮会下载真实文件。你可以把按钮链接改成自己的网盘、GitHub 文件或服务器文件地址。",
   "downloadsTitle": "可下载文件",
   "downloadsText": "这里的文件卡片都在 site-content.js 里编辑。你可以新增、删除、改标题、改说明、改下载链接。",
-  "editTitle": "怎么编辑前台",
-  "editText": "用手机打开 GitHub 仓库里的 site-content.js，点编辑按钮，修改文字或下载链接后提交。GitHub Pages 会自动更新前台页面。",
-  "footer": "© 2026 AZ Premium Downloads. Powered by GitHub Pages.",
+  "editTitle": "关于MT管理器",
+  "editText": "这里提供 MT 管理器相关资源介绍与下载入口。MT 管理器支持安卓文件管理、压缩解压、文本编辑、APK 资源查看与编辑等功能，适合需要管理文件和研究应用结构的用户使用",
+  "footer": "© 2026 AZ Premium Downloads.",
   "files": [
     {
       "icon": "cloud",
