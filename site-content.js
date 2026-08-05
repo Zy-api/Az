@@ -33,10 +33,10 @@ window.SITE_CONTENT = {
   "footer": "© 2026 AZ Premium Downloads.",
   "files": [
     {
-      "icon": "cloud",
-      "title": "示例说明文件",
-      "description": "点击后会下载一个真实的 TXT 文件，用来证明下载功能可用。",
-      "type": "TXT",
+      "icon": "folder",
+      "title": "PUBG清理文件",
+      "description": "用于清理封号残留，可防止封禁7天",
+      "type": "ZIP",
       "meta": "可直接下载",
       "button": "立即下载",
       "primary": true,
@@ -44,7 +44,7 @@ window.SITE_CONTENT = {
       "url": "https://1851738406.share.123pan.cn/123pan/nluBvd-22EZ3"
     },
     {
-      "icon": "link",
+      "icon": "folder",
       "title": "MT管理器",
       "description": "专业安卓文件管理工具，内置解压、代码编辑、APK修改等多种功能",
       "type": "APK",
