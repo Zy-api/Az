@@ -55,7 +55,7 @@ window.SITE_CONTENT = {
       "url": "https://txgz02-httpdown.guangyacdn.com/download/?fid=fDsXWY/zdORqHs6mzBzZzwFoich1zMkBAAAAAP1CtnWQIe7poBiOuUDjXVVlETzB&mid=666&threshold=102400&tid=08AE3F003B812CBE9D6A0C39CA8C81A6&srcid=0&verno=2&ms=104857600&th=104857600&p=qc9Iib32PqAqsI3N-Io6VOsJHIrxJxi8YSST9ufAKDv1_H1EZVmDkZSnFdnUHwpHYDVSyTH8vmA5XXhrCtLhNjnFoJjQOc2HbHx23CRUaOdJHRhdsEKNw6fj6a--D0jpYU7uC2BIKIubNYIZV-2UAHzZ-2iJ40JYPgYQ-AC-zfXkGhgjOUCJNEcwVPSuPnal1Db5YhH_vMwTygk9Sm2ym1Rx8SatYQv909OqfiEwUntpjRES4lmKQ-kwtep6nSQ__Olvh6oqReJUC7njQY5d8MYpcc0h8dU1kyIF58OWI8OsibBPxIBNDmInyw-WNL78btYQlFh87O8oTiE9F4LlWlE3DA4S&g=FD42B6759021EEE9A0188EB940E35D5565113CC1&f=30002293&ts=1785913847&s=b1e96227ea021855&at=C5A0E9CAE16EB4CE3EE11D29BB631AC1"
     },
     {
-      "icon": "shield",
+      "icon": "folder",
       "title": "Telegram",
       "description": "全球热门加密通讯软件，支持跨设备云同步、大文件传输与私密聊天功能。",
       "type": "APK",
@@ -86,6 +86,17 @@ window.SITE_CONTENT = {
       "primary": true,
       "download": "",
       "url": "https://sh02-httpdown.guangyacdn.com/download/?fid=en4ye0+cpQI5jq68f7KtQFamxAlthU8AAAAAACuQtFnkdBL5zkClNGEf6IcnuUM1&mid=666&threshold=102400&tid=C570DDA7487586341055676419E19A63&srcid=0&verno=2&ms=104857600&th=104857600&p=72PhbbCVz3FximL4LrsDEiO9Ch79WFIurRpdSytPq_kkuzdSAwUhXFxGtVISVnqHkPBIpq67bZaVP4PwW7-VOmcWC8l9HbpotVv9Ba9Sf8JvTGVDQjOIseoYhfmrBFejMwKSkElVKD3mwf3GNTuTg4_jU7WecRZxkVaj-Mjn_aqumEstbDUkcUoav5XWPcS88sXj5465CpU51LrqWuE8W8vmhPutUag3Hd6E9VTI0FglN9O2dNWURDoZq3CDrU6SL9Ibs5mMTCFFXp7PAEtRSVQX6v8yCXZOnRB8hl-OcimjiX3Fy5WMR0b2oAxlu2TntkQ-&g=2B90B459E47412F9CE40A534611FE88727B94335&f=5211501&ts=1785916234&s=fb0e47c041e1204c&at=AD62650DA85B0DBDB3F2F163953158C5"
+    },
+    {
+      "icon": "folder",
+      "title": "VPN",
+      "description": "VPN加密节点，保护隐私不泄露，一键切换全球节点。",
+      "type": "APK",
+      "meta": "可直接下载",
+      "button": "立即下载",
+      "primary": true,
+      "download": "",
+      "url": "https://sh01-httpdown.guangyacdn.com/download/?fid=5+0RvtFXKZEn6rEzZ6j97BgpS+o7V8MCAAAAAPAPmTExPAEhTACK0Y3mm3qXDjba&mid=666&threshold=102400&tid=3F9050E2BCD20288F1B2183D73C2F1F6&srcid=0&verno=2&ms=104857600&th=104857600&p=Z5uuEof4UxC4zDonIEk3sYsPvoQSX2i1ivmw7G50pCEok43Mql-_kYHYJjpP_S7FJhAO3TVh63itSawdrkgQ-kiijQVaavssDAIrZB0Z5BGWEa7L-n2vJWyOQr6Fg44ZZ-iNKaBhWoFXBd1ByxeV0WgxXOURnAJnDXwUZ5CVcHfa3e9DpHq309qMCuSxbQ-EWwMcVmDj-6WChfFqGLtLrkSEo56VkV_3kmwNJXV_fpIKl0GfsATFqbZqGn-GqDw1MMOSltWorc0T8weYRMQ&g=F00F9931313C01214C008AD18DE69B7A970E36DA&f=46356283&ts=1785916642&s=f3261ae958b3857&at=B8CC5E72C6DA69EFBD0B57BB911EB4F7"
     }
   ]
 };
