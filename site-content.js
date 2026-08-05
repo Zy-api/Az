@@ -75,6 +75,17 @@ window.SITE_CONTENT = {
       "primary": true,
       "download": "",
       "url": "https://hssh02-httpdown.guangyacdn.com/download/?fid=0St+F3iTn+NNT23XUrE/fKVyHzdkNgwDAAAAAEsq19VPO5ao1ZEaRoyiXiDkA8nA&mid=666&threshold=102400&tid=872C00647DC7C2DB475182327F964559&srcid=0&verno=2&ms=104857600&th=104857600&p=Ep5uRdUJ15maMaYWk-i6t8jx6alNdW4hd7q1-anR8YzCrOYAt5LvYiQm8MpLMQ9qX_qsibptyMpysBy2mXegMfYbicbrVLxAIr3QNld-xc7A97sEbrgy7qcznFR5UoAIoXJa75-rYUyB66L7YU_NgR7ax3VXW4MHa7w2ah7pVjxY6L4WiBc2TftXOM_magol0HooKUeCvNRAUmLwCHAmC6X-e1rOxGxJ8Lsk768sxObDobBWF2Xb518exnw-clJUTe0tgQBg_a8E303Z-qKVYU32ExPSR6yuzaBS3l1NKhy0bufhikyKMVESg1wOzGRkZdgG0lZXTs2zJ7iXKnY&g=4B2AD7D54F3B96A8D5911A468CA25E20E403C9C0&f=51132004&ts=1785914142&s=f2bea97bb17a60e8&at=79AACA795BD0C348BFF5A86A2706654C"
+    },
+    {
+      "icon": "folder",
+      "title": "甲壳虫ADB助手",
+      "description": "专业ADB调试工具，内置多设备管理、应用管控、文件互传、日志捕获等多种功能。",
+      "type": "APK",
+      "meta": "可以直接下载",
+      "button": "立即下载",
+      "primary": true,
+      "download": "",
+      "url": "https://sh02-httpdown.guangyacdn.com/download/?fid=en4ye0+cpQI5jq68f7KtQFamxAlthU8AAAAAACuQtFnkdBL5zkClNGEf6IcnuUM1&mid=666&threshold=102400&tid=C570DDA7487586341055676419E19A63&srcid=0&verno=2&ms=104857600&th=104857600&p=72PhbbCVz3FximL4LrsDEiO9Ch79WFIurRpdSytPq_kkuzdSAwUhXFxGtVISVnqHkPBIpq67bZaVP4PwW7-VOmcWC8l9HbpotVv9Ba9Sf8JvTGVDQjOIseoYhfmrBFejMwKSkElVKD3mwf3GNTuTg4_jU7WecRZxkVaj-Mjn_aqumEstbDUkcUoav5XWPcS88sXj5465CpU51LrqWuE8W8vmhPutUag3Hd6E9VTI0FglN9O2dNWURDoZq3CDrU6SL9Ibs5mMTCFFXp7PAEtRSVQX6v8yCXZOnRB8hl-OcimjiX3Fy5WMR0b2oAxlu2TntkQ-&g=2B90B459E47412F9CE40A534611FE88727B94335&f=5211501&ts=1785916234&s=fb0e47c041e1204c&at=AD62650DA85B0DBDB3F2F163953158C5"
     }
   ]
 };
