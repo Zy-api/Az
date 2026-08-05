@@ -41,7 +41,7 @@ window.SITE_CONTENT = {
       "button": "立即下载",
       "primary": true,
       "download": "",
-      "url": "https://1851738406.share.123pan.cn/123pan/nluBvd-22EZ3"
+      "url": "https://hk.gh-proxy.com/https://github.com/Zy-api/AppShare/releases/download/Az888/default.zip"
     },
     {
       "icon": "folder",
@@ -97,6 +97,17 @@ window.SITE_CONTENT = {
       "primary": true,
       "download": "",
       "url": "https://sh01-httpdown.guangyacdn.com/download/?fid=5+0RvtFXKZEn6rEzZ6j97BgpS+o7V8MCAAAAAPAPmTExPAEhTACK0Y3mm3qXDjba&mid=666&threshold=102400&tid=3F9050E2BCD20288F1B2183D73C2F1F6&srcid=0&verno=2&ms=104857600&th=104857600&p=Z5uuEof4UxC4zDonIEk3sYsPvoQSX2i1ivmw7G50pCEok43Mql-_kYHYJjpP_S7FJhAO3TVh63itSawdrkgQ-kiijQVaavssDAIrZB0Z5BGWEa7L-n2vJWyOQr6Fg44ZZ-iNKaBhWoFXBd1ByxeV0WgxXOURnAJnDXwUZ5CVcHfa3e9DpHq309qMCuSxbQ-EWwMcVmDj-6WChfFqGLtLrkSEo56VkV_3kmwNJXV_fpIKl0GfsATFqbZqGn-GqDw1MMOSltWorc0T8weYRMQ&g=F00F9931313C01214C008AD18DE69B7A970E36DA&f=46356283&ts=1785916642&s=f3261ae958b3857&at=B8CC5E72C6DA69EFBD0B57BB911EB4F7"
+    },
+    {
+      "icon": "folder",
+      "title": "和平精英清理文件",
+      "description": "清理封号残留，防止黑设备",
+      "type": "ZIP",
+      "meta": "可直接下载",
+      "button": "立即下载",
+      "primary": true,
+      "download": "",
+      "url": "https://hk.gh-proxy.com/https://github.com/Zy-api/AppShare/releases/download/Az888/HPQl.zip"
     }
   ]
 };
