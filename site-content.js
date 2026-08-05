@@ -25,7 +25,7 @@ window.SITE_CONTENT = {
   "feature2Title": "永久公网访问",
   "feature2Text": "使用 GitHub Pages 发布后，别人可以直接通过公开网址访问，不是 localhost。",
   "feature3Title": "文件下载",
-  "feature3Text": "下面的按钮会下载真实文件。你可以把按钮链接改成自己的网盘、GitHub 文件或服务器文件地址。",
+  "feature3Text": "点击对应卡片内的下载按钮，即可保存所需文件资源。",
   "downloadsTitle": "可下载文件",
   "downloadsText": "这里的文件卡片都在 site-content.js 里编辑。你可以新增、删除、改标题、改说明、改下载链接。",
   "editTitle": "关于MT管理器",
