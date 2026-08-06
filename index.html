@@ -4,7 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AZ Premium Downloads</title>
-  <script src="./site-content.js"></script>
+  <script>
+    // 缓存清除：每 2 分钟刷新一次 site-content.js，确保后台修改后前台能及时更新
+    (function () {
+      var s = document.createElement('script');
+      s.src = './site-content.js?v=' + Math.floor(Date.now() / 120000);
+      s.async = false;
+      s.onerror = function () {
+        // 加载失败时回退到无参数版本
+        var f = document.createElement('script');
+        f.src = './site-content.js';
+        f.async = false;
+        document.head.appendChild(f);
+      };
+      document.head.appendChild(s);
+    })();
+  </script>
   <style>
     :root {
       --bg: #f5f9ff;
