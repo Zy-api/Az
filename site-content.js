@@ -10,7 +10,7 @@ window.SITE_CONTENT = {
   "navFeatures": "亮点",
   "navDownloads": "下载",
   "navAbout": "说明",
-  "badge": "Resource sharing platform",
+  "badge": "Premium Digital Downloads",
   "heroTitle": "资源分享平台",
   "heroSubtitle": "本站无需注册付费，无需安装额外程序，进入页面即可获取所需资源。",
   "primaryButton": "查看下载文件",
