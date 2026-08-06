@@ -118,13 +118,13 @@ window.SITE_CONTENT = {
     {
       "icon": "folder",
       "title": "VT内核",
-      "description": "这里填写文件说明。",
+      "description": "VT内核，拥有硬件断点追踪，透视自瞄掩体漏打等功能",
       "type": "ZIP",
       "meta": "可下载",
       "button": "立即下载",
       "primary": true,
       "download": "",
-      "url": "#"
+      "url": "https://hk.gh-proxy.com/https://github.com/Zy-api/AppShare/releases/download/Az888/VT.zip"
     }
   ]
 };
