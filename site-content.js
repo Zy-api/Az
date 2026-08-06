@@ -117,7 +117,7 @@ window.SITE_CONTENT = {
     },
     {
       "icon": "folder",
-      "title": "VT内核[和平精英]",
+      "title": "VT内核",
       "description": "VT内核，拥有硬件断点追踪，透视自瞄掩体漏打等功能",
       "type": "ZIP",
       "meta": "可下载",
