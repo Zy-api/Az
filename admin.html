@@ -1760,7 +1760,16 @@
       if (adminStarted) return;
       adminStarted = true;
       loadSettings();
-      if (!loadDraft()) renderForm();
+      if (!loadDraft()) {
+        // 没有本地草稿时，自动从 GitHub 加载最新内容
+        const cfg = getConfig();
+        if (cfg.token) {
+          loadFromGithub();
+        } else {
+          renderForm();
+          setStatus("请先填写 GitHub Token 并保存，然后点"从 GitHub 读取最新内容"。");
+        }
+      }
     }
 
     function showAdmin() {
