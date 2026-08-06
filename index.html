@@ -429,6 +429,41 @@
       font-size: 0.88rem;
     }
 
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 22px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.5);
+      font-weight: 900;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .filter-btn:hover {
+      color: var(--text);
+      border-color: rgba(37, 99, 235, 0.3);
+    }
+
+    .filter-btn.active {
+      color: #fff;
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--cyan), var(--accent));
+      box-shadow: 0 10px 28px rgba(37, 99, 235, 0.25);
+    }
+
     .site-footer {
       width: min(1180px, calc(100% - 40px));
       margin: 0 auto;
@@ -612,6 +647,12 @@
         <p data-site="downloadsText">这里先放了一个示例下载。你要换成自己的文件时，把按钮链接里的内容改成你的文件地址即可。</p>
       </div>
 
+      <div class="filter-bar" id="filterBar">
+        <button class="filter-btn active" data-filter="all" type="button">全部</button>
+        <button class="filter-btn" data-filter="app" type="button">APP</button>
+        <button class="filter-btn" data-filter="file" type="button">文件</button>
+      </div>
+
       <div class="file-grid" id="downloadsGrid"></div>
     </section>
 
@@ -668,22 +709,47 @@
       { icon: "folder", title: "高级展示位", description: "这里可以展示产品资料、安装包、课程附件、压缩包或其他资源。", type: "PREMIUM", meta: "展示卡片", button: "发布到 Pages", primary: false, url: "#about" }
     ];
     const files = Array.isArray(content.files) && content.files.length ? content.files : defaultFiles;
-    downloadsGrid.innerHTML = files.map((file) => `
-      <article class="file-card">
-        <div>
-          <div class="file-icon">${ICON_LIBRARY[file.icon] || ICON_LIBRARY.cloud}</div>
-          <h3>${file.title || "未命名文件"}</h3>
-          <p>${file.description || "点击按钮下载文件。"}</p>
-        </div>
-        <div>
-          <div class="file-meta">
-            <span>${file.type || "FILE"}</span>
-            <span>${file.meta || "可下载"}</span>
+
+    function isAppFile(file) {
+      const t = (file.type || "").toUpperCase().trim();
+      return t === "APK" || t === "APP" || t === "IPA" || t === "APK应用" || t === "应用";
+    }
+
+    function renderFiles(filter) {
+      let list = files;
+      if (filter === "app") {
+        list = files.filter(isAppFile);
+      } else if (filter === "file") {
+        list = files.filter((f) => !isAppFile(f));
+      }
+      downloadsGrid.innerHTML = list.map((file) => `
+        <article class="file-card">
+          <div>
+            <div class="file-icon">${ICON_LIBRARY[file.icon] || ICON_LIBRARY.cloud}</div>
+            <h3>${file.title || "未命名文件"}</h3>
+            <p>${file.description || "点击按钮下载文件。"}</p>
           </div>
-          <a class="btn ${file.primary ? "btn-download" : "btn-ghost"}" ${file.download && !/^https?:\/\//.test(file.url || "") ? `download="${file.download}"` : ""} href="${file.url || "#"}">${file.button || "立即下载"}</a>
-        </div>
-      </article>
-    `).join("");
+          <div>
+            <div class="file-meta">
+              <span>${file.type || "FILE"}</span>
+              <span>${file.meta || "可下载"}</span>
+            </div>
+            <a class="btn ${file.primary ? "btn-download" : "btn-ghost"}" ${file.download && !/^https?:\/\//.test(file.url || "") ? `download="${file.download}"` : ""} href="${file.url || "#"}">${file.button || "立即下载"}</a>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    renderFiles("all");
+
+    const filterBar = document.getElementById("filterBar");
+    filterBar.addEventListener("click", (e) => {
+      const btn = e.target.closest(".filter-btn");
+      if (!btn) return;
+      filterBar.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderFiles(btn.dataset.filter);
+    });
   </script>
 </body>
 </html>
