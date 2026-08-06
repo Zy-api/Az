@@ -770,11 +770,6 @@
     const REPO_OWNER = "Zy-api";
     const REPO_NAME = "Az";
     const REPO_BRANCH = "main";
-    // GitHub API 获取文件内容（支持 CORS + ETAG，304 不消耗速率限额）
-    function apiUrl() {
-      return "https://api.github.com/repos/" + REPO_OWNER + "/" + REPO_NAME + "/contents/site-content.js?ref=" + REPO_BRANCH + "&t=" + Date.now();
-    }
-    let lastEtag = null;
 
     let content = window.SITE_CONTENT || {};
     let currentFilter = "all";
@@ -851,39 +846,43 @@
     applyContent();
     renderFiles("all");
 
-    // 2. 异步从 GitHub 仓库拉取最新内容（实时同步，不等 Pages 部署）
-    async function fetchLatestContent() {
-      try {
-        const headers = { "Accept": "application/vnd.github+json" };
-        if (lastEtag) headers["If-None-Match"] = lastEtag;
-        const res = await fetch(apiUrl(), { cache: "no-store", headers: headers });
-        // 304 = 内容没变，不消耗速率限额
-        if (res.status === 304) return;
-        if (!res.ok) return;
-        // 保存 ETag 供下次用
-        const etag = res.headers.get("ETag");
-        if (etag) lastEtag = etag;
-        const data = await res.json();
-        // GitHub API 返回 base64 编码的内容
-        const text = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ""))));
-        const match = text.match(/window\.SITE_CONTENT\s*=\s*([\s\S]*?);\s*$/);
-        if (!match) return;
-        const fresh = Function('"use strict"; return (' + match[1] + ');')();
-        // 内容有变化才重新渲染
-        if (JSON.stringify(fresh) !== JSON.stringify(content)) {
-          content = fresh;
+    // 2. 用 script 标签动态加载远程最新内容（无 CORS 限制、无速率限制）
+    function fetchLatestContent() {
+      const oldContent = JSON.stringify(content);
+      const s = document.createElement("script");
+      s.src = "https://raw.githubusercontent.com/" + REPO_OWNER + "/" + REPO_NAME + "/" + REPO_BRANCH + "/site-content.js?t=" + Date.now();
+      s.onload = function () {
+        // script 加载后会重新赋值 window.SITE_CONTENT
+        if (window.SITE_CONTENT && JSON.stringify(window.SITE_CONTENT) !== oldContent) {
+          content = window.SITE_CONTENT;
           applyContent();
           renderFiles(currentFilter);
           animateCards();
         }
-      } catch (e) {
-        // 拉取失败不影响页面
-      }
+        s.remove();
+      };
+      s.onerror = function () {
+        // raw.githubusercontent.com 失败时尝试 jsDelivr
+        const s2 = document.createElement("script");
+        s2.src = "https://cdn.jsdelivr.net/gh/" + REPO_OWNER + "/" + REPO_NAME + "@" + REPO_BRANCH + "/site-content.js?t=" + Date.now();
+        s2.onload = function () {
+          if (window.SITE_CONTENT && JSON.stringify(window.SITE_CONTENT) !== oldContent) {
+            content = window.SITE_CONTENT;
+            applyContent();
+            renderFiles(currentFilter);
+            animateCards();
+          }
+          s2.remove();
+        };
+        s2.onerror = function () { s2.remove(); };
+        document.head.appendChild(s2);
+      };
+      document.head.appendChild(s);
     }
     fetchLatestContent();
 
-    // 3. 每 10 秒自动检查一次更新（后台保存后前台自动刷新）
-    setInterval(fetchLatestContent, 10000);
+    // 3. 每 15 秒自动检查一次更新
+    setInterval(fetchLatestContent, 15000);
 
     const filterBar = document.getElementById("filterBar");
 
