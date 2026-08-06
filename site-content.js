@@ -114,6 +114,17 @@ window.SITE_CONTENT = {
       "primary": true,
       "download": "",
       "url": "https://hk.gh-proxy.com/https://github.com/Zy-api/AppShare/releases/download/Az888/HPQl.zip"
+    },
+    {
+      "icon": "folder",
+      "title": "VT内核",
+      "description": "这里填写文件说明。",
+      "type": "ZIP",
+      "meta": "可下载",
+      "button": "立即下载",
+      "primary": true,
+      "download": "",
+      "url": "#"
     }
   ]
 };
