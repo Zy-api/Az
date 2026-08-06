@@ -846,13 +846,13 @@
     applyContent();
     renderFiles("all");
 
-    // 2. 用 script 标签动态加载远程最新内容（无 CORS 限制、无速率限制）
+    // 2. 用 script 标签从 jsDelivr CDN 加载远程最新内容（国内可访问、无速率限制）
     function fetchLatestContent() {
       const oldContent = JSON.stringify(content);
       const s = document.createElement("script");
-      s.src = "https://raw.githubusercontent.com/" + REPO_OWNER + "/" + REPO_NAME + "/" + REPO_BRANCH + "/site-content.js?t=" + Date.now();
+      // jsDelivr 有亚洲 CDN 节点，国内访问快
+      s.src = "https://cdn.jsdelivr.net/gh/" + REPO_OWNER + "/" + REPO_NAME + "@" + REPO_BRANCH + "/site-content.js?t=" + Date.now();
       s.onload = function () {
-        // script 加载后会重新赋值 window.SITE_CONTENT
         if (window.SITE_CONTENT && JSON.stringify(window.SITE_CONTENT) !== oldContent) {
           content = window.SITE_CONTENT;
           applyContent();
@@ -862,9 +862,10 @@
         s.remove();
       };
       s.onerror = function () {
-        // raw.githubusercontent.com 失败时尝试 jsDelivr
+        s.remove();
+        // jsDelivr 失败时尝试 raw.githubusercontent.com
         const s2 = document.createElement("script");
-        s2.src = "https://cdn.jsdelivr.net/gh/" + REPO_OWNER + "/" + REPO_NAME + "@" + REPO_BRANCH + "/site-content.js?t=" + Date.now();
+        s2.src = "https://raw.githubusercontent.com/" + REPO_OWNER + "/" + REPO_NAME + "/" + REPO_BRANCH + "/site-content.js?t=" + Date.now();
         s2.onload = function () {
           if (window.SITE_CONTENT && JSON.stringify(window.SITE_CONTENT) !== oldContent) {
             content = window.SITE_CONTENT;

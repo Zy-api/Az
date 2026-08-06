@@ -1461,7 +1461,14 @@
         const result = await saveRes.json();
         currentSha = result.content.sha;
         clearDraft();
-        setStatus("保存成功！前台会在 10 秒内自动更新（无需等 Pages 部署）。\n点击查看前台：" + pagesUrl(cfg));
+        setStatus("保存成功！正在刷新 CDN 缓存...");
+        // 清除 jsDelivr CDN 缓存，让前台能立即获取最新内容
+        try {
+          await fetch("https://purge.jsdelivr.net/gh/" + encodeURIComponent(cfg.owner) + "/" + encodeURIComponent(cfg.repo) + "@" + (cfg.branch || "main") + "/site-content.js", { method: "GET" });
+          setStatus("保存成功！前台会在 15 秒内自动更新。\n点击查看前台：" + pagesUrl(cfg));
+        } catch (e) {
+          setStatus("保存成功！前台会在 15 秒内自动更新。\n点击查看前台：" + pagesUrl(cfg));
+        }
       } catch (error) {
         setStatus("保存失败：\n" + error.message);
       }
