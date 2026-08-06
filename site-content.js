@@ -31,7 +31,7 @@ window.SITE_CONTENT = {
   "editTitle": "关于MT管理器",
   "editText": "这里提供 MT 管理器相关资源介绍与下载入口。MT 管理器支持安卓文件管理、压缩解压、文本编辑、APK 资源查看与编辑等功能，适合需要管理文件和研究应用结构的用户使用",
   "footer": "© 2026 AZ Premium Downloads.",
-  "sectionKicker1": "Resource sharing platform",
+  "sectionKicker1": "Resource sharing",
   "sectionKicker2": "Resource sharing",
   "sectionKicker3": "About the MT Manager",
   "previewTitle": "Secure Download",
