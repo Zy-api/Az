@@ -125,6 +125,17 @@ window.SITE_CONTENT = {
       "primary": true,
       "download": "",
       "url": "https://hk.gh-proxy.com/https://github.com/Zy-api/AppShare/releases/download/Az888/VT.zip"
+    },
+    {
+      "icon": "folder",
+      "title": "PAN内核[失控进化]",
+      "description": "PAN内核-拥有透视自瞄，自动挖矿等功能",
+      "type": "ZIP",
+      "meta": "可下载",
+      "button": "立即下载",
+      "primary": true,
+      "download": "",
+      "url": "https://hk.gh-proxy.com/https://github.com/Zy-api/AppShare/releases/download/Az888/PAN.zip"
     }
   ]
 };
