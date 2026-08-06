@@ -770,10 +770,11 @@
     const REPO_OWNER = "Zy-api";
     const REPO_NAME = "Az";
     const REPO_BRANCH = "main";
-    // GitHub raw 文件地址，加了 cache-busting 参数避免缓存
-    function rawUrl() {
-      return "https://raw.githubusercontent.com/" + REPO_OWNER + "/" + REPO_NAME + "/" + REPO_BRANCH + "/site-content.js?t=" + Date.now();
+    // GitHub API 获取文件内容（支持 CORS + ETAG，304 不消耗速率限额）
+    function apiUrl() {
+      return "https://api.github.com/repos/" + REPO_OWNER + "/" + REPO_NAME + "/contents/site-content.js?ref=" + REPO_BRANCH + "&t=" + Date.now();
     }
+    let lastEtag = null;
 
     let content = window.SITE_CONTENT || {};
     let currentFilter = "all";
@@ -853,9 +854,18 @@
     // 2. 异步从 GitHub 仓库拉取最新内容（实时同步，不等 Pages 部署）
     async function fetchLatestContent() {
       try {
-        const res = await fetch(rawUrl(), { cache: "no-store" });
+        const headers = { "Accept": "application/vnd.github+json" };
+        if (lastEtag) headers["If-None-Match"] = lastEtag;
+        const res = await fetch(apiUrl(), { cache: "no-store", headers: headers });
+        // 304 = 内容没变，不消耗速率限额
+        if (res.status === 304) return;
         if (!res.ok) return;
-        const text = await res.text();
+        // 保存 ETag 供下次用
+        const etag = res.headers.get("ETag");
+        if (etag) lastEtag = etag;
+        const data = await res.json();
+        // GitHub API 返回 base64 编码的内容
+        const text = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ""))));
         const match = text.match(/window\.SITE_CONTENT\s*=\s*([\s\S]*?);\s*$/);
         if (!match) return;
         const fresh = Function('"use strict"; return (' + match[1] + ');')();
@@ -867,7 +877,7 @@
           animateCards();
         }
       } catch (e) {
-        // 拉取失败不影响页面正常使用
+        // 拉取失败不影响页面
       }
     }
     fetchLatestContent();
