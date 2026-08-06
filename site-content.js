@@ -113,7 +113,7 @@ window.SITE_CONTENT = {
       "icon": "cloud",
       "title": "新文件",
       "description": "这里填写文件说明。",
-      "type": "FILE",
+      "type": "APK",
       "meta": "可下载",
       "button": "立即下载",
       "primary": true,
