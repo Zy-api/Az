@@ -1461,42 +1461,10 @@
         const result = await saveRes.json();
         currentSha = result.content.sha;
         clearDraft();
-        setStatus("已提交到 GitHub，正在等待 Pages 自动构建...");
-        pollPagesBuild(cfg, 0);
+        setStatus("保存成功！前台会在 10 秒内自动更新（无需等 Pages 部署）。\n点击查看前台：" + pagesUrl(cfg));
       } catch (error) {
         setStatus("保存失败：\n" + error.message);
       }
-    }
-
-    // 轮询 GitHub Pages 构建状态，实时反馈同步进度
-    async function pollPagesBuild(cfg, attempt) {
-      var maxAttempts = 12;
-      var interval = 15000; // 每 15 秒查一次，最多 3 分钟
-      if (attempt >= maxAttempts) {
-        setStatus("已提交到 GitHub，Pages 构建可能还在进行中。请稍后刷新前台查看。\n前台地址（带缓存清除）：" + pagesUrl(cfg));
-        return;
-      }
-      try {
-        var buildsUrl = "https://api.github.com/repos/" + encodeURIComponent(cfg.owner) + "/" + encodeURIComponent(cfg.repo) + "/pages/builds/latest";
-        var res = await fetch(buildsUrl, {
-          headers: {
-            "Authorization": "Bearer " + cfg.token,
-            "Accept": "application/vnd.github+json"
-          }
-        });
-        if (res.ok) {
-          var data = await res.json();
-          if (data.status === "built") {
-            var timeStr = data.duration ? ("（耗时 " + Math.round(data.duration) + " 秒）") : "";
-            setStatus("同步完成！前台已更新" + timeStr + "。\n点击查看前台：" + pagesUrl(cfg));
-            return;
-          }
-          setStatus("已提交到 GitHub，Pages 正在构建...（第 " + (attempt + 1) + " 次检测，约 " + ((attempt + 1) * 15) + " 秒）");
-        }
-      } catch (e) {
-        // 查询失败不影响流程，继续轮询
-      }
-      setTimeout(function () { pollPagesBuild(cfg, attempt + 1); }, interval);
     }
 
     // 生成带缓存清除参数的前台地址

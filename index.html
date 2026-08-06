@@ -766,23 +766,39 @@
       cube: '<svg viewBox="0 0 64 64" fill="none"><path d="m32 7 22 12v26L32 57 10 45V19L32 7Z" stroke="currentColor" stroke-width="3.4" stroke-linejoin="round"/><path d="M10 19 32 32l22-13M32 32v25" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg>'
     };
 
-    const content = window.SITE_CONTENT || {};
-    document.title = content.pageTitle || document.title;
-    document.body.dataset.animation = content.animationStyle || "smooth";
-    document.getElementById("brandIcon").innerHTML = ICON_LIBRARY[content.brandIcon] || ICON_LIBRARY.crystal;
-    document.getElementById("heroIcon").innerHTML = ICON_LIBRARY[content.heroIcon] || ICON_LIBRARY.vault;
-    document.querySelectorAll("[data-site]").forEach((node) => {
-      const key = node.dataset.site;
-      if (content[key]) node.textContent = content[key];
-    });
+    // ===== 仓库配置 =====
+    const REPO_OWNER = "Zy-api";
+    const REPO_NAME = "Az";
+    const REPO_BRANCH = "main";
+    // GitHub raw 文件地址，加了 cache-busting 参数避免缓存
+    function rawUrl() {
+      return "https://raw.githubusercontent.com/" + REPO_OWNER + "/" + REPO_NAME + "/" + REPO_BRANCH + "/site-content.js?t=" + Date.now();
+    }
 
+    let content = window.SITE_CONTENT || {};
+    let currentFilter = "all";
     const downloadsGrid = document.getElementById("downloadsGrid");
+
     const defaultFiles = [
       { icon: "cloud", title: "示例说明文件", description: "点击后会下载一个真实的 TXT 文件，用来证明下载功能可用。", type: "TXT", meta: "可直接下载", button: "立即下载", primary: true, download: "AZ说明文件.txt", url: "data:text/plain;charset=utf-8,%E8%BF%99%E6%98%AFAZ%20Premium%20Downloads%E7%9A%84%E7%A4%BA%E4%BE%8B%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%E3%80%82" },
       { icon: "link", title: "外部文件链接", description: "可以把按钮换成你的网盘、GitHub Release 或服务器文件地址。", type: "LINK", meta: "可替换", button: "查看修改方法", primary: false, url: "#about" },
       { icon: "folder", title: "高级展示位", description: "这里可以展示产品资料、安装包、课程附件、压缩包或其他资源。", type: "PREMIUM", meta: "展示卡片", button: "发布到 Pages", primary: false, url: "#about" }
     ];
-    const files = Array.isArray(content.files) && content.files.length ? content.files : defaultFiles;
+
+    function getFiles() {
+      return Array.isArray(content.files) && content.files.length ? content.files : defaultFiles;
+    }
+
+    function applyContent() {
+      document.title = content.pageTitle || document.title;
+      document.body.dataset.animation = content.animationStyle || "smooth";
+      document.getElementById("brandIcon").innerHTML = ICON_LIBRARY[content.brandIcon] || ICON_LIBRARY.crystal;
+      document.getElementById("heroIcon").innerHTML = ICON_LIBRARY[content.heroIcon] || ICON_LIBRARY.vault;
+      document.querySelectorAll("[data-site]").forEach((node) => {
+        const key = node.dataset.site;
+        if (content[key]) node.textContent = content[key];
+      });
+    }
 
     function isAppFile(file) {
       const t = (file.type || "").toUpperCase().trim();
@@ -790,6 +806,7 @@
     }
 
     function renderFiles(filter) {
+      const files = getFiles();
       let list = files;
       if (filter === "app") {
         list = files.filter(isAppFile);
@@ -814,29 +831,7 @@
       `).join("");
     }
 
-    renderFiles("all");
-
-    const filterBar = document.getElementById("filterBar");
-
-    // 分类切换动画
-    let currentFilter = "all";
-    function getVisibleCards(filter) {
-      if (filter === "app") return files.filter(isAppFile);
-      if (filter === "file") return files.filter((f) => !isAppFile(f));
-      return files;
-    }
-
-    filterBar.addEventListener("click", (e) => {
-      const btn = e.target.closest(".filter-btn");
-      if (!btn) return;
-      if (btn.classList.contains("active")) return;
-      filterBar.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      const filter = btn.dataset.filter;
-      currentFilter = filter;
-      renderFiles(filter);
-
-      // 卡片逐个淡入
+    function animateCards() {
       const cards = downloadsGrid.querySelectorAll(".file-card");
       cards.forEach((card) => {
         card.classList.remove("visible");
@@ -849,6 +844,55 @@
           card.classList.add("visible");
         });
       });
+    }
+
+    // 1. 先用本地 site-content.js 渲染（保证页面立即可用）
+    applyContent();
+    renderFiles("all");
+
+    // 2. 异步从 GitHub 仓库拉取最新内容（实时同步，不等 Pages 部署）
+    async function fetchLatestContent() {
+      try {
+        const res = await fetch(rawUrl(), { cache: "no-store" });
+        if (!res.ok) return;
+        const text = await res.text();
+        const match = text.match(/window\.SITE_CONTENT\s*=\s*([\s\S]*?);\s*$/);
+        if (!match) return;
+        const fresh = Function('"use strict"; return (' + match[1] + ');')();
+        // 内容有变化才重新渲染
+        if (JSON.stringify(fresh) !== JSON.stringify(content)) {
+          content = fresh;
+          applyContent();
+          renderFiles(currentFilter);
+          animateCards();
+        }
+      } catch (e) {
+        // 拉取失败不影响页面正常使用
+      }
+    }
+    fetchLatestContent();
+
+    // 3. 每 10 秒自动检查一次更新（后台保存后前台自动刷新）
+    setInterval(fetchLatestContent, 10000);
+
+    const filterBar = document.getElementById("filterBar");
+
+    function getVisibleCards(filter) {
+      const files = getFiles();
+      if (filter === "app") return files.filter(isAppFile);
+      if (filter === "file") return files.filter((f) => !isAppFile(f));
+      return files;
+    }
+
+    filterBar.addEventListener("click", (e) => {
+      const btn = e.target.closest(".filter-btn");
+      if (!btn) return;
+      if (btn.classList.contains("active")) return;
+      filterBar.querySelectorAll(".filter-btn").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      currentFilter = btn.dataset.filter;
+      renderFiles(currentFilter);
+      animateCards();
     });
 
     // 滚动入场 - Downloads 区域进入视野时卡片逐个出现
