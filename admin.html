@@ -1100,37 +1100,6 @@
     let currentSha = "";
     const draftKey = "az_admin_content_draft";
 
-    // 启动时从 jsDelivr 加载 GitHub 仓库最新内容（不依赖 Pages 部署）
-    (function loadLatestFromCDN() {
-      const s = document.createElement("script");
-      s.src = "https://cdn.jsdelivr.net/gh/Zy-api/Az@main/site-content.js?t=" + Date.now();
-      s.onload = function () {
-        if (window.SITE_CONTENT && window.SITE_CONTENT.files) {
-          content = normalizeContent(window.SITE_CONTENT);
-          renderForm();
-          setStatus("已从 GitHub 加载最新内容。");
-        }
-        s.remove();
-      };
-      s.onerror = function () {
-        s.remove();
-        // jsDelivr 失败尝试 raw
-        const s2 = document.createElement("script");
-        s2.src = "https://raw.githubusercontent.com/Zy-api/Az/main/site-content.js?t=" + Date.now();
-        s2.onload = function () {
-          if (window.SITE_CONTENT && window.SITE_CONTENT.files) {
-            content = normalizeContent(window.SITE_CONTENT);
-            renderForm();
-            setStatus("已从 GitHub 加载最新内容。");
-          }
-          s2.remove();
-        };
-        s2.onerror = function () { s2.remove(); };
-        document.head.appendChild(s2);
-      };
-      document.head.appendChild(s);
-    })();
-
     const fields = document.querySelectorAll("[data-key]");
     const statusBox = document.getElementById("status");
     document.getElementById("adminBrandIcon").innerHTML = '<svg viewBox="0 0 48 48" fill="none"><path d="M24 5 39 14v20L24 43 9 34V14L24 5Z" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><path d="M24 13 32 18v12l-8 5-8-5V18l8-5Z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" opacity=".72"/><path d="M9 14 24 23l15-9M24 23v20" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round" opacity=".5"/></svg>';
@@ -1791,16 +1760,44 @@
       if (adminStarted) return;
       adminStarted = true;
       loadSettings();
-      if (!loadDraft()) {
-        // 没有本地草稿时，自动从 GitHub 加载最新内容
-        const cfg = getConfig();
-        if (cfg.token) {
-          loadFromGithub();
-        } else {
-          renderForm();
-          setStatus("请先填写 GitHub Token 并保存，然后点"从 GitHub 读取最新内容"。");
-        }
-      }
+      if (!loadDraft()) renderForm();
+      // 登录成功后从 CDN 加载最新内容
+      loadLatestFromCDN();
+    }
+
+    function loadLatestFromCDN() {
+      try {
+        var s = document.createElement("script");
+        s.src = "https://cdn.jsdelivr.net/gh/Zy-api/Az@main/site-content.js?t=" + Date.now();
+        s.onload = function () {
+          try {
+            if (window.SITE_CONTENT && window.SITE_CONTENT.files) {
+              content = normalizeContent(window.SITE_CONTENT);
+              renderForm();
+              setStatus("已从 GitHub 加载最新内容。");
+            }
+          } catch (e) {}
+          s.remove();
+        };
+        s.onerror = function () {
+          s.remove();
+          var s2 = document.createElement("script");
+          s2.src = "https://raw.githubusercontent.com/Zy-api/Az/main/site-content.js?t=" + Date.now();
+          s2.onload = function () {
+            try {
+              if (window.SITE_CONTENT && window.SITE_CONTENT.files) {
+                content = normalizeContent(window.SITE_CONTENT);
+                renderForm();
+                setStatus("已从 GitHub 加载最新内容。");
+              }
+            } catch (e) {}
+            s2.remove();
+          };
+          s2.onerror = function () { s2.remove(); };
+          document.head.appendChild(s2);
+        };
+        document.head.appendChild(s);
+      } catch (e) {}
     }
 
     function showAdmin() {
