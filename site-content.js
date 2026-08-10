@@ -140,7 +140,7 @@ window.SITE_CONTENT = {
     {
       "icon": "folder",
       "title": "LinYu内核[失控进化]",
-      "description": "LinYu内核-公益内核，拥有子追功能。",
+      "description": "LinYu内核-公益内核，拥有子追功能",
       "type": "ZIP",
       "meta": "可下载",
       "button": "立即下载",
