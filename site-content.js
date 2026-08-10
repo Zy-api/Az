@@ -129,35 +129,24 @@ window.SITE_CONTENT = {
     {
       "icon": "folder",
       "title": "PAN内核[失控进化]",
-      "description": "PAN内核-拥有透视自瞄，自动挖矿等，物资透视等功能",
+      "description": "PAN内核-拥有透视自瞄，自动挖矿等功能",
       "type": "ZIP",
       "meta": "可下载",
       "button": "立即下载",
       "primary": true,
       "download": "",
-      "url": "https://hk.gh-proxy.com/https://github.com/Zy-api/AppShare/releases/download/Az888/PNA-.7.0.zip"
+      "url": "https://hk.gh-proxy.com/https://github.com/Zy-api/AppShare/releases/download/Az888/PAN.zip"
     },
     {
       "icon": "folder",
       "title": "LinYu内核[失控进化]",
-      "description": "LinYu内核-公益内核，拥有子追功能，无掩体漏打",
+      "description": "LinYu内核-公益内核，拥有子追功能。",
       "type": "ZIP",
       "meta": "可下载",
       "button": "立即下载",
       "primary": true,
       "download": "",
       "url": "https://hk.gh-proxy.com/https://github.com/Zy-api/AppShare/releases/download/Az888/Linyu.zip"
-    },
-    {
-      "icon": "folder",
-      "title": "NBG内核[失控进化]",
-      "description": "牛逼哥内核-拥有掩体变色，自动打矿，物资透视等功能",
-      "type": "ZIP",
-      "meta": "可下载",
-      "button": "立即下载",
-      "primary": true,
-      "download": "",
-      "url": "https://hk.gh-proxy.com/https://github.com/Zy-api/AppShare/releases/download/Az888/NBG-RUST.zip"
     }
   ]
 };
