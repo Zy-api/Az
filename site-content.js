@@ -150,7 +150,7 @@ window.SITE_CONTENT = {
     },
     {
       "icon": "folder",
-      "title": "NBG内核",
+      "title": "NBG内核[失控进化]",
       "description": "牛逼哥内核-拥有掩体变色，自动打矿，物资透视等功能",
       "type": "ZIP",
       "meta": "可下载",
