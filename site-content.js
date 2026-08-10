@@ -147,6 +147,17 @@ window.SITE_CONTENT = {
       "primary": true,
       "download": "",
       "url": "https://hk.gh-proxy.com/https://github.com/Zy-api/AppShare/releases/download/Az888/Linyu.zip"
+    },
+    {
+      "icon": "folder",
+      "title": "NBG内核[失控进化]",
+      "description": "牛逼哥内核-拥有透视自瞄，物资透视，掩体变色等功能",
+      "type": "ZIP",
+      "meta": "可下载",
+      "button": "立即下载",
+      "primary": true,
+      "download": "",
+      "url": "https://hk.gh-proxy.com/https://github.com/Zy-api/AppShare/releases/download/Az888/NBG-RUST.zip"
     }
   ]
 };
