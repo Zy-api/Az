@@ -135,7 +135,7 @@ window.SITE_CONTENT = {
       "button": "立即下载",
       "primary": true,
       "download": "",
-      "url": "https://hk.gh-proxy.com/https://github.com/Zy-api/AppShare/releases/download/Az888/PAN.zip"
+      "url": "https://github.com/Zy-api/AppShare/releases/download/Az888/PNA-.7.0.zip"
     },
     {
       "icon": "folder",
