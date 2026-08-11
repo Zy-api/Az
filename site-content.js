@@ -135,12 +135,12 @@ window.SITE_CONTENT = {
       "button": "立即下载",
       "primary": true,
       "download": "",
-      "url": "https://github.com/Zy-api/AppShare/releases/download/Az888/PNA-.7.0.zip"
+      "url": "https://hk.gh-proxy.com/https://github.com/Zy-api/AppShare/releases/download/Az888/PAN.zip"
     },
     {
       "icon": "folder",
       "title": "LinYu内核[失控进化]",
-      "description": "LinYu内核-公益内核，拥有子追功能",
+      "description": "LinYu内核-公益内核，拥有子追功能。",
       "type": "ZIP",
       "meta": "可下载",
       "button": "立即下载",
@@ -151,7 +151,7 @@ window.SITE_CONTENT = {
     {
       "icon": "folder",
       "title": "NBG内核[失控进化]",
-      "description": "牛逼哥内核-拥有透视自瞄，物资透视，掩体变色等功能",
+      "description": "牛逼哥内核-拥有自动打矿",
       "type": "ZIP",
       "meta": "可下载",
       "button": "立即下载",
